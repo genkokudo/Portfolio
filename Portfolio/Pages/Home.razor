@@ -1,7 +1,20 @@
 ﻿@page "/"
+@inject IHttpClientFactory HttpClientFactory
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<h1>@message</h1>
+
+@code {
+    private string message = "読み込み中...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("functions");
+        message = await client.GetStringAsync("TestFromSite");
+    }
+}
