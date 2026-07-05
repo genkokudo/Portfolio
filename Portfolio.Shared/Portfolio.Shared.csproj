@@ -4,23 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-
-    <!-- NuGetパッケージ情報 -->
-    <PackageId>Genkokudo.Portfolio.Shared</PackageId>
-    <Version>1.0.0</Version>
-    <Authors>Genkokudo</Authors>
-    <Description>Portfolio site shared models</Description>
-    <RepositoryUrl>https://github.com/genkokudo/Portfolio</RepositoryUrl>
-
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="NuGet.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="NuGet.config" />
-  </ItemGroup>
 
 
   <ItemGroup>
