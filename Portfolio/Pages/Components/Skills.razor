@@ -1,0 +1,25 @@
+﻿@using Portfolio.Shared.Model
+@inject IHttpClientFactory HttpClientFactory
+
+@if (skills == null)
+{
+    <p>読み込み中...</p>
+}
+else
+{
+    @foreach (var skill in skills)
+    {
+        <Skill Item="skill" />
+    }
+}
+
+@code {
+    private List<SkillItem>? skills;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("functions");
+        var data = await client.GetFromJsonAsync<Dictionary<string, List<SkillItem>>>("GetPortfolioData");
+        skills = data?["Skills"];
+    }
+}

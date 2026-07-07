@@ -1,0 +1,11 @@
+﻿@using Portfolio.Shared.Model
+<div class="skill-item">
+    <span>@Item.Name</span>
+    <span>@Item.Rating / 5</span>
+    <span>@Item.Comment</span>
+</div>
+
+@code {
+    [Parameter]
+    public required SkillItem Item { get; set; }
+}
