@@ -6,13 +6,13 @@
 }
 else
 {
-    @foreach (var skill in Items)
+    @foreach (var work in Items)
     {
-        <Skill Item="skill" />
+        <WorkHistory Item="work" />
     }
 }
 
 @code {
     [Parameter]
-    public List<SkillItem>? Items { get; set; }
+    public List<WorkHistoryItem>? Items { get; set; }
 }

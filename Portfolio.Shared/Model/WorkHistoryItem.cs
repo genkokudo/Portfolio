@@ -2,7 +2,7 @@
 
 namespace Portfolio.Shared.Model
 {
-    public class SkillItem
+    public class WorkHistoryItem
     {
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
@@ -14,22 +14,25 @@ namespace Portfolio.Shared.Model
         public string PartitionKey { get; set; } = string.Empty;
 
         /// <summary>
-        /// システム開発業務か、デザイン業務か
+        /// 会社の種別
         /// </summary>
-        [JsonPropertyName("category")]
-        public string Category { get; set; } = string.Empty;
-
-        [JsonPropertyName("name")]
-        public string Name { get; set; } = string.Empty;
+        [JsonPropertyName("companyType")]
+        public string CompanyType { get; set; } = string.Empty;
 
         /// <summary>
-        /// 1～5の整数値で評価する。
+        /// 役職・担当
         /// </summary>
-        [JsonPropertyName("rating")]
-        public int Rating { get; set; }
+        [JsonPropertyName("role")]
+        public string Role { get; set; } = string.Empty;
 
-        [JsonPropertyName("comment")]
-        public string Comment { get; set; } = string.Empty;
+        [JsonPropertyName("startDate")]
+        public string StartDate { get; set; } = string.Empty;
+
+        [JsonPropertyName("endDate")]
+        public string EndDate { get; set; } = string.Empty;
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// サイトでの表示順序を指定するための値。小さいほど先に表示される。

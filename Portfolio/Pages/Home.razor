@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using Portfolio.Pages.Components
+@using Portfolio.Shared.Model
 @inject IHttpClientFactory HttpClientFactory
 
 <PageTitle>Home</PageTitle>
@@ -9,14 +10,17 @@
 Welcome to your new app.
 
 <h1>@message</h1>
-<Skills />
+<Skills Items="portfolioData?.Skills" />
+<WorkHistories Items="portfolioData?.WorkHistories" />
 
 @code {
+    private PortfolioData? portfolioData;
     private string message = "読み込み中...";
 
     protected override async Task OnInitializedAsync()
     {
         var client = HttpClientFactory.CreateClient("functions");
-        message = await client.GetStringAsync("TestFromSite");
+        portfolioData = await client
+            .GetFromJsonAsync<PortfolioData>("GetPortfolioData");
     }
 }

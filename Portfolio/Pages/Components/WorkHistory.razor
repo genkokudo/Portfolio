@@ -1,0 +1,11 @@
+﻿@using Portfolio.Shared.Model
+<div class="workHistory-item">
+    <span>@Item.Role</span>
+    <span>@Item.StartDate - @Item.EndDate</span>
+    <span>@Item.Description</span>
+</div>
+
+@code {
+    [Parameter]
+    public required WorkHistoryItem Item { get; set; }
+}
