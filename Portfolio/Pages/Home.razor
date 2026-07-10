@@ -20,7 +20,6 @@ Welcome to your new app.
     protected override async Task OnInitializedAsync()
     {
         var client = HttpClientFactory.CreateClient("functions");
-        portfolioData = await client
-            .GetFromJsonAsync<PortfolioData>("GetPortfolioData");
+        portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
     }
 }

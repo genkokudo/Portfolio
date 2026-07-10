@@ -8,5 +8,6 @@ namespace Portfolio.Shared.Model
     {
         public List<SkillItem> Skills { get; set; } = new();
         public List<WorkHistoryItem> WorkHistories { get; set; } = new();
+        public List<WorkItem> Works { get; set; } = new();
     }
 }
