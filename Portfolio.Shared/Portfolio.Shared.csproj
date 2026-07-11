@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy
-      SourceFiles="$(OutputPath)Portfolio.Shared.dll"
-      DestinationFolder="..\..\PortfolioUtilityFunctions\PortfolioUtilityFunctions\libs\" />
+    <Copy SourceFiles="$(OutputPath)Portfolio.Shared.dll" DestinationFolder="..\..\PortfolioUtilityFunctions\PortfolioUtilityFunctions\libs\" />
   </Target>
 
 </Project>

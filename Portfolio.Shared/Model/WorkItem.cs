@@ -5,6 +5,14 @@ using System.Text.Json.Serialization;
 
 namespace Portfolio.Shared.Model
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum WorkCategory
+    {
+        Unknown = 0,
+        Flyer = 1,
+        Banner = 2
+    }
+
     public class WorkItem
     {
         /// <summary>
@@ -13,12 +21,11 @@ namespace Portfolio.Shared.Model
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
 
-        // TODO:Enum化するか検討
         /// <summary>
-        /// "banner" or "flyer"
+        /// 作品のカテゴリ
         /// </summary>
         [JsonPropertyName("category")]
-        public string Category { get; set; } = string.Empty;
+        public WorkCategory Category { get; set; } = WorkCategory.Unknown;
 
         /// <summary>
         /// 一覧・詳細に表示する作品名
