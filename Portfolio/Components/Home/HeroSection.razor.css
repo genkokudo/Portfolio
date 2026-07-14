@@ -1,0 +1,94 @@
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: 72px 112px;
+    background: var(--color-navy);
+    color: #fff;
+}
+
+    .hero::after {
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 58px;
+        background: var(--color-page-background);
+        clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        content: "";
+    }
+
+.hero-inner {
+    width: min(100% - 80px, 1120px);
+    margin-inline: auto;
+}
+
+.hero-tag {
+    display: inline-block;
+    margin: 0 0 20px;
+    padding: 5px 16px;
+    border: 1px solid rgb(126 179 255 / 40%);
+    border-radius: 999px;
+    color: var(--color-accent-light);
+    font-size: .6875rem;
+    letter-spacing: .1em;
+}
+
+h1 {
+    margin: 0 0 16px;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: .03em;
+    line-height: 1.55;
+}
+
+    h1 span {
+        color: var(--color-accent-light);
+    }
+
+.hero-description {
+    max-width: 580px;
+    margin: 0 0 30px;
+    color: #91a2c0;
+    font-size: .8125rem;
+    line-height: 2;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+}
+
+    .hero-actions a {
+        display: inline-flex;
+        min-width: 132px;
+        min-height: 42px;
+        border-radius: 4px;
+        align-items: center;
+        justify-content: center;
+        font-size: .75rem;
+        letter-spacing: .06em;
+        text-decoration: none;
+        transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+.primary-action {
+    border: 1px solid var(--color-accent);
+    background: var(--color-accent);
+    color: #fff;
+}
+
+    .primary-action:hover, .primary-action:focus-visible {
+        border-color: #316dcc;
+        background: #316dcc;
+        color: #fff;
+    }
+
+.secondary-action {
+    border: 1px solid var(--color-accent-light);
+    color: var(--color-accent-light);
+}
+
+    .secondary-action:hover, .secondary-action:focus-visible {
+        background: var(--color-accent-light);
+        color: var(--color-navy);
+    }

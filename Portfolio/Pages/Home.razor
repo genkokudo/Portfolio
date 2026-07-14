@@ -1,17 +1,18 @@
-﻿@page "/"
+@page "/"
+@using Portfolio.Components.Home
 @using Portfolio.Pages.Components
 @using Portfolio.Shared.Model
 @inject IHttpClientFactory HttpClientFactory
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Portfolio | Web Designer &amp; Engineer</PageTitle>
 
-<h1>Hello, world!</h1>
+<HeroSection />
 
-Welcome to your new app.
-
-<h1>@message</h1>
-<Skills Items="portfolioData?.Skills" />
-<WorkHistories Items="portfolioData?.WorkHistories" />
+<section id="about" class="content-placeholder" aria-labelledby="content-status">
+    <h2 id="content-status">@message</h2>
+    <Skills Items="portfolioData?.Skills" />
+    <WorkHistories Items="portfolioData?.WorkHistories" />
+</section>
 
 @code {
     private PortfolioData? portfolioData;
@@ -21,5 +22,6 @@ Welcome to your new app.
     {
         var client = HttpClientFactory.CreateClient("functions");
         portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
+        message = "Portfolio Data";
     }
 }

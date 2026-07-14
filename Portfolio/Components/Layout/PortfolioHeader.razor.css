@@ -1,0 +1,39 @@
+.site-header {
+    height: 64px;
+    background: var(--color-navy);
+}
+
+.header-inner {
+    display: flex;
+    width: min(100% - 80px, 1120px);
+    height: 100%;
+    margin-inline: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-logo {
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-decoration: none;
+}
+
+.global-nav {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+}
+
+    .global-nav a {
+        color: var(--color-nav-text);
+        font-size: .75rem;
+        letter-spacing: .08em;
+        text-decoration: none;
+        transition: color 160ms ease;
+    }
+
+        .global-nav a:hover, .global-nav a:focus-visible {
+            color: #fff;
+        }
