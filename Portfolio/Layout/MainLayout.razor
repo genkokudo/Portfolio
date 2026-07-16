@@ -1,8 +1,24 @@
 @inherits LayoutComponentBase
 @using Portfolio.Components.Layout
+@using Portfolio.Shared.Model
+@inject IHttpClientFactory HttpClientFactory
 
 <div class="site-shell">
-    <PortfolioHeader />
-    <main id="main-content">@Body</main>
-    <PortfolioFooter />
+    <PortfolioHeader AuthorName="@portfolioData?.AuthorNameAlphabet" />
+    <main id="main-content">
+        <CascadingValue Value="portfolioData">
+            @Body
+        </CascadingValue>
+    </main>
+    <PortfolioFooter AuthorName="@portfolioData?.AuthorNameAlphabet" />
 </div>
+
+@code {
+    private PortfolioData? portfolioData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("functions");
+        portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
+    }
+}

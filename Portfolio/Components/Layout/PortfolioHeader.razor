@@ -1,6 +1,6 @@
 <header class="site-header">
     <div class="header-inner">
-        <a class="site-logo" href="/" aria-label="ポートフォリオ トップページ">PORTFOLIO</a>
+        <a class="site-logo" href="/" aria-label="ポートフォリオ トップページ">@AuthorName</a>
         <nav class="global-nav" aria-label="メインナビゲーション">
             <a href="#about">自己紹介</a>
             <a href="#skills">スキル</a>
@@ -9,3 +9,8 @@
         </nav>
     </div>
 </header>
+
+@code {
+    [Parameter]
+    public string? AuthorName { get; set; }
+}

@@ -6,8 +6,11 @@ namespace Portfolio.Shared.Model
 {
     public class PortfolioData
     {
-        public List<SkillItem> Skills { get; set; } = new();
-        public List<WorkHistoryItem> WorkHistories { get; set; } = new();
-        public List<WorkItem> Works { get; set; } = new();
+        public string AuthorNameKanji { get; set; } = string.Empty;
+        public string AuthorNameHiragana { get; set; } = string.Empty;
+        public string AuthorNameAlphabet { get; set; } = string.Empty;
+        public List<SkillItem> Skills { get; set; } = [];
+        public List<WorkHistoryItem> WorkHistories { get; set; } = [];
+        public List<WorkItem> Works { get; set; } = [];
     }
 }

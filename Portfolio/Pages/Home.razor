@@ -2,26 +2,21 @@
 @using Portfolio.Components.Home
 @using Portfolio.Pages.Components
 @using Portfolio.Shared.Model
-@inject IHttpClientFactory HttpClientFactory
 
-<PageTitle>Portfolio | Web Designer &amp; Engineer</PageTitle>
+<PageTitle>@PageTitleText</PageTitle>
 
 <HeroSection />
 
 <section id="about" class="content-placeholder" aria-labelledby="content-status">
     <h2 id="content-status">@message</h2>
-    <Skills Items="portfolioData?.Skills" />
-    <WorkHistories Items="portfolioData?.WorkHistories" />
+    <Skills Items="PortfolioData?.Skills" />
+    <WorkHistories Items="PortfolioData?.WorkHistories" />
 </section>
 
 @code {
-    private PortfolioData? portfolioData;
-    private string message = "読み込み中...";
+    [CascadingParameter]
+    private PortfolioData? PortfolioData { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var client = HttpClientFactory.CreateClient("functions");
-        portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
-        message = "Portfolio Data";
-    }
+    private string message => PortfolioData is null ? "読み込み中..." : "Portfolio Data";
+    private string PageTitleText => $"{PortfolioData?.AuthorNameAlphabet ?? "Portfolio"} | Software Engineer";
 }

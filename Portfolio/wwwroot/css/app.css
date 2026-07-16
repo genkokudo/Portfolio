@@ -4,6 +4,9 @@
     --color-accent-light: #7eb3ff;
     --color-nav-text: #8aa0c4;
     --color-page-background: #f0f3f8;
+    --color-hero-text: #7a90b0;
+    --color-text-secondary: #8899bb;
+    --color-text-gray: #555566;
 }
 
 html { min-height: 100%; scroll-behavior: smooth; }
