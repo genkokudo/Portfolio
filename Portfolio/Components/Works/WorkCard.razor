@@ -1,0 +1,29 @@
+@using Portfolio.Shared.Model
+
+<article class="work-card">
+    <div class="thumbnail-frame">
+        @if (string.IsNullOrWhiteSpace(Work.ThumbnailUrl))
+        {
+            <span class="thumbnail-placeholder">画像準備中</span>
+        }
+        else
+        {
+            <img src="@Work.ThumbnailUrl"
+                 alt="@Work.Title"
+                 loading="lazy"
+                 decoding="async" />
+        }
+    </div>
+    <div class="work-summary">
+        <h4>@Work.Title</h4>
+        @if (!string.IsNullOrWhiteSpace(Work.Description))
+        {
+            <p>@Work.Description</p>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired]
+    public WorkItem Work { get; set; } = new();
+}

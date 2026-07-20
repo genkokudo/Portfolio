@@ -1,5 +1,6 @@
 @page "/"
 @using Portfolio.Components.Home
+@using Portfolio.Components.Works
 @using Portfolio.Pages.Components
 @using Portfolio.Shared.Model
 
@@ -12,6 +13,8 @@
     <Skills Items="PortfolioData?.Skills" />
     <WorkHistories Items="PortfolioData?.WorkHistories" />
 </section>
+
+<WorksSection Items="PortfolioData?.Works" />
 
 @code {
     [CascadingParameter]

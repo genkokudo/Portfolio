@@ -1,0 +1,41 @@
+.work-category {
+    overflow: hidden;
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.work-category h3 {
+    display: flex;
+    height: 59px;
+    margin: 0;
+    padding-inline: 44px;
+    border-bottom: 1px solid var(--color-text-secondary);
+    background: var(--color-background-badge);
+    align-items: center;
+    color: var(--color-accent);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30.4px;
+}
+
+.carousel-shell {
+    background: var(--color-page-background);
+}
+
+.carousel-shell ::deep .works-carousel {
+    background: var(--color-page-background);
+}
+
+.carousel-shell ::deep .mud-primary-text {
+    color: var(--color-accent) !important;
+}
+
+.works-page {
+    display: grid;
+    height: 100%;
+    padding: 40px 43px 56px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 40px;
+    align-items: start;
+}

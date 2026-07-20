@@ -1,0 +1,48 @@
+@using Portfolio.Shared.Model
+
+<section class="work-category" aria-label="@CategoryName">
+    <h3>@CategoryName</h3>
+
+    <div class="carousel-shell">
+        <MudCarousel TData="IReadOnlyList<WorkItem>"
+                     ItemsSource="@Pages"
+                     Class="works-carousel"
+                     Style="height: 460px;"
+                     ShowArrows="@HasMultiplePages"
+                     ShowBullets="@HasMultiplePages"
+                     ArrowsColor="Color.Primary"
+                     BulletsColor="Color.Primary"
+                     EnableSwipeGesture="true"
+                     AutoCycle="false">
+            <ItemTemplate Context="page">
+                <div class="works-page">
+                    @foreach (var work in page)
+                    {
+                        <WorkCard Work="@work" />
+                    }
+                </div>
+            </ItemTemplate>
+        </MudCarousel>
+    </div>
+</section>
+
+@code {
+    private const int PageSize = 4;
+
+    [Parameter, EditorRequired]
+    public string CategoryName { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<WorkItem> Items { get; set; } = [];
+
+    private IReadOnlyList<IReadOnlyList<WorkItem>> Pages { get; set; } = [];
+    private bool HasMultiplePages => Pages.Count > 1;
+
+    protected override void OnParametersSet()
+    {
+        Pages = Items
+            .Chunk(PageSize)
+            .Select(page => (IReadOnlyList<WorkItem>)page)
+            .ToList();
+    }
+}

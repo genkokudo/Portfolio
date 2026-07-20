@@ -3,6 +3,11 @@
 @using Portfolio.Shared.Model
 @inject IHttpClientFactory HttpClientFactory
 
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
 <div class="site-shell">
     <PortfolioHeader AuthorName="@portfolioData?.AuthorNameAlphabet" />
     <main id="main-content">
