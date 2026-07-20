@@ -7,7 +7,7 @@
         <MudCarousel TData="IReadOnlyList<WorkItem>"
                      ItemsSource="@Pages"
                      Class="works-carousel"
-                     Style="height: 460px;"
+                     Style="@CarouselStyle"
                      ShowArrows="@HasMultiplePages"
                      ShowBullets="@HasMultiplePages"
                      ArrowsColor="Color.Primary"
@@ -15,7 +15,7 @@
                      EnableSwipeGesture="true"
                      AutoCycle="false">
             <ItemTemplate Context="page">
-                <div class="works-page">
+                <div class="works-page @(HasMultiplePages ? "works-page--with-navigation" : "works-page--without-navigation")">
                     @foreach (var work in page)
                     {
                         <WorkCard Work="@work" />
@@ -37,6 +37,16 @@
 
     private IReadOnlyList<IReadOnlyList<WorkItem>> Pages { get; set; } = [];
     private bool HasMultiplePages => Pages.Count > 1;
+    private WorkCategory Category => Items.FirstOrDefault()?.Category ?? WorkCategory.Unknown;
+    private string CarouselStyle => $"height: {CarouselHeight}px;";
+
+    private int CarouselHeight => (Category, HasMultiplePages) switch
+    {
+        (WorkCategory.Flyer, true) => 580,
+        (WorkCategory.Flyer, false) => 532,
+        (_, true) => 460,
+        (_, false) => 415
+    };
 
     protected override void OnParametersSet()
     {

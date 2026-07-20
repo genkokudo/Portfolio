@@ -34,8 +34,16 @@
 .works-page {
     display: grid;
     height: 100%;
-    padding: 40px 43px 56px;
+    padding: 40px 43px 0;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 40px;
     align-items: start;
+}
+
+.works-page--with-navigation {
+    padding-bottom: 56px;
+}
+
+.works-page--without-navigation {
+    padding-bottom: 16px;
 }

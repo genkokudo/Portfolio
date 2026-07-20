@@ -9,11 +9,19 @@
 .thumbnail-frame {
     display: flex;
     width: 100%;
-    aspect-ratio: 1;
     overflow: hidden;
     background: #fff;
     align-items: center;
     justify-content: center;
+}
+
+.thumbnail-frame--banner,
+.thumbnail-frame--unknown {
+    aspect-ratio: 1 / 1;
+}
+
+.thumbnail-frame--flyer {
+    aspect-ratio: 210 / 297;
 }
 
 .thumbnail-frame img {

@@ -1,7 +1,7 @@
 @using Portfolio.Shared.Model
 
 <article class="work-card">
-    <div class="thumbnail-frame">
+    <div class="thumbnail-frame @ThumbnailFrameClass">
         @if (string.IsNullOrWhiteSpace(Work.ThumbnailUrl))
         {
             <span class="thumbnail-placeholder">画像準備中</span>
@@ -26,4 +26,11 @@
 @code {
     [Parameter, EditorRequired]
     public WorkItem Work { get; set; } = new();
+
+    private string ThumbnailFrameClass => Work.Category switch
+    {
+        WorkCategory.Banner => "thumbnail-frame--banner",
+        WorkCategory.Flyer => "thumbnail-frame--flyer",
+        _ => "thumbnail-frame--unknown"
+    };
 }
