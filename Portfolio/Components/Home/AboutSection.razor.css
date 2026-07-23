@@ -1,0 +1,180 @@
+.about-section {
+    width: min(calc(100% - 106px), 1334px);
+    margin-inline: auto;
+}
+
+.section-heading {
+    display: flex;
+    min-height: 81px;
+    gap: 24px;
+    align-items: center;
+}
+
+.section-number {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--color-navy);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 33px;
+}
+
+.section-rule {
+    height: 2px;
+    background: var(--color-border-default);
+    flex: 1;
+}
+
+.section-name-en {
+    color: #4a4a48;
+    font-size: 20px;
+    line-height: 23.8px;
+}
+
+.about-content {
+    display: grid;
+    min-height: 375px;
+    grid-template-columns: 128px minmax(0, 1083px);
+    gap: 42px;
+}
+
+.profile-image-frame {
+    display: flex;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    border: 2px solid var(--color-navy);
+    border-radius: 50%;
+    background: var(--color-background-badge);
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-family: "Inter", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.profile-image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    display: flex;
+    min-width: 0;
+    padding-inline: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-name,
+.profile-name-reading,
+.profile-title,
+.profile-description {
+    margin: 0;
+}
+
+.profile-name {
+    min-height: 41px;
+    padding-block: 5px;
+    color: var(--color-navy);
+    font-size: 24px;
+    line-height: 30.4px;
+}
+
+.profile-name-reading {
+    min-height: 20px;
+    color: var(--color-text-secondary);
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.profile-title {
+    min-height: 42px;
+    padding-block: 5px;
+    color: var(--color-accent);
+    font-size: 20px;
+    line-height: 30.4px;
+}
+
+.profile-description {
+    width: 100%;
+    min-height: 116px;
+    padding-block: 5px;
+    color: var(--color-navy);
+    font-size: 20px;
+    line-height: 30.4px;
+    white-space: pre-line;
+}
+
+.profile-tags {
+    display: flex;
+    min-height: 65px;
+    margin: 0;
+    padding: 0 2px;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    list-style: none;
+}
+
+.profile-tags li {
+    display: inline-flex;
+    height: 35px;
+    padding-inline: 23px;
+    border-radius: 8px;
+    background: var(--color-background-badge);
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 19.5px;
+    white-space: nowrap;
+}
+
+.github-link {
+    display: inline-flex;
+    min-height: 49.5px;
+    padding: 15px 23px;
+    border-radius: 8px;
+    background: var(--color-accent);
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 19.5px;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+}
+
+.github-link:hover,
+.github-link:focus-visible {
+    background: #316dcc;
+    color: #fff;
+}
+
+.about-status {
+    min-height: 375px;
+    margin: 0;
+    padding: 48px;
+    color: var(--color-text-gray);
+    font-size: 18px;
+    text-align: center;
+}

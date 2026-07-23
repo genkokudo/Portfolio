@@ -8,7 +8,9 @@
 
 <HeroSection />
 
-<section id="about" class="content-placeholder" aria-labelledby="content-status">
+<AboutSection Data="@PortfolioData" />
+
+<section class="content-placeholder" aria-labelledby="content-status">
     <h2 id="content-status">@message</h2>
     <Skills Items="PortfolioData?.Skills" />
     <WorkHistories Items="PortfolioData?.WorkHistories" />

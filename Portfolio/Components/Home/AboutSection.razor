@@ -1,0 +1,75 @@
+@using Portfolio.Shared.Model
+
+<section id="about" class="about-section" aria-labelledby="about-title">
+    <div class="section-heading">
+        <span class="section-number" aria-hidden="true">1</span>
+        <h2 id="about-title">自己紹介</h2>
+        <span class="section-rule" aria-hidden="true"></span>
+        <span class="section-name-en">About</span>
+    </div>
+
+    @if (Data is null)
+    {
+        <p class="about-status" role="status">プロフィールを読み込んでいます。</p>
+    }
+    else
+    {
+        <div class="about-content">
+            <div class="profile-image-frame">
+                @if (string.IsNullOrWhiteSpace(Data.ProfileImageUrl))
+                {
+                    <span aria-hidden="true">@ProfileInitial</span>
+                }
+                else
+                {
+                    <img src="@Data.ProfileImageUrl"
+                         alt="@Data.AuthorNameKanji のプロフィール画像"
+                         loading="lazy"
+                         decoding="async" />
+                }
+            </div>
+
+            <div class="profile-details">
+                <p class="profile-name">@Data.AuthorNameKanji</p>
+                <p class="profile-name-reading">@Data.AuthorNameHiragana</p>
+                <p class="profile-title">@Data.ProfessionalTitle</p>
+
+                @if (!string.IsNullOrWhiteSpace(Data.ProfileDescription))
+                {
+                    <p class="profile-description">@Data.ProfileDescription</p>
+                }
+
+                @if (Data.ProfileTags?.Count > 0)
+                {
+                    <ul class="profile-tags" aria-label="主なスキル">
+                        @foreach (var tag in Data.ProfileTags.Where(tag => !string.IsNullOrWhiteSpace(tag)))
+                        {
+                            <li>@tag</li>
+                        }
+                    </ul>
+                }
+
+                @if (HasGitHubUrl)
+                {
+                    <a class="github-link"
+                       href="@Data.GitHubUrl"
+                       target="_blank"
+                       rel="noopener noreferrer">Githubを見る</a>
+                }
+            </div>
+        </div>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public PortfolioData? Data { get; set; }
+
+    private string ProfileInitial => string.IsNullOrWhiteSpace(Data?.AuthorNameAlphabet)
+        ? "P"
+        : Data.AuthorNameAlphabet.Trim()[..1].ToUpperInvariant();
+
+    private bool HasGitHubUrl =>
+        Uri.TryCreate(Data?.GitHubUrl, UriKind.Absolute, out var uri)
+        && (uri.Scheme == Uri.UriSchemeHttps || uri.Scheme == Uri.UriSchemeHttp);
+}
