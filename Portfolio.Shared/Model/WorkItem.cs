@@ -40,6 +40,12 @@ namespace Portfolio.Shared.Model
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
+        /// 作品の詳細説明文
+        /// </summary>
+        [JsonPropertyName("detailDescription")]
+        public string DetailDescription { get; set; } = string.Empty;
+
+        /// <summary>
         /// 作品のサムネイル画像のURL
         /// </summary>
         [JsonPropertyName("thumbnailUrl")]
