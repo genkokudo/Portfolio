@@ -1,0 +1,18 @@
+<span class="skill-stars"
+      role="img"
+      aria-label="@($"{NormalizedRating} / {MaximumRating}")">
+    @for (var index = 1; index <= MaximumRating; index++)
+    {
+        <span class="@(index <= NormalizedRating ? "star star--filled" : "star star--empty")"
+              aria-hidden="true">★</span>
+    }
+</span>
+
+@code {
+    private const int MaximumRating = 5;
+
+    [Parameter]
+    public int Rating { get; set; }
+
+    private int NormalizedRating => Math.Clamp(Rating, 0, MaximumRating);
+}

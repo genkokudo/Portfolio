@@ -1,7 +1,6 @@
 @page "/"
 @using Portfolio.Components.Home
 @using Portfolio.Components.Works
-@using Portfolio.Pages.Components
 @using Portfolio.Shared.Model
 
 <PageTitle>@PageTitleText</PageTitle>
@@ -12,10 +11,7 @@
 
 <CareerSection Items="@PortfolioData?.WorkHistories" />
 
-<section class="content-placeholder" aria-labelledby="content-status">
-    <h2 id="content-status">@message</h2>
-    <Skills Items="PortfolioData?.Skills" />
-</section>
+<SkillsSection Items="@PortfolioData?.Skills" />
 
 <WorksSection Items="PortfolioData?.Works" />
 
@@ -23,6 +19,5 @@
     [CascadingParameter]
     private PortfolioData? PortfolioData { get; set; }
 
-    private string message => PortfolioData is null ? "読み込み中..." : "Portfolio Data";
     private string PageTitleText => $"{PortfolioData?.AuthorNameAlphabet ?? "Portfolio"} | Software Engineer";
 }

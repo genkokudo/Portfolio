@@ -1,0 +1,22 @@
+.skill-stars {
+    display: inline-flex;
+    width: 120px;
+    height: 34px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.star {
+    width: 24px;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+}
+
+.star--filled {
+    color: var(--color-accent);
+}
+
+.star--empty {
+    color: var(--color-border-default);
+}
