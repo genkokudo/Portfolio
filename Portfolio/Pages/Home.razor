@@ -10,10 +10,11 @@
 
 <AboutSection Data="@PortfolioData" />
 
+<CareerSection Items="@PortfolioData?.WorkHistories" />
+
 <section class="content-placeholder" aria-labelledby="content-status">
     <h2 id="content-status">@message</h2>
     <Skills Items="PortfolioData?.Skills" />
-    <WorkHistories Items="PortfolioData?.WorkHistories" />
 </section>
 
 <WorksSection Items="PortfolioData?.Works" />
