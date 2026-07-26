@@ -1,0 +1,11 @@
+.content-placeholder {
+    width: min(100% - 80px, 1120px);
+    margin-inline: auto;
+    padding-block: 64px;
+}
+
+    .content-placeholder h2 {
+        margin: 0 0 24px;
+        color: var(--color-navy);
+        font-size: 1rem;
+    }

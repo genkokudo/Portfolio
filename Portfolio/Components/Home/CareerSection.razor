@@ -1,0 +1,59 @@
+@using Portfolio.Shared.Model
+
+<section id="career" class="career-section" aria-labelledby="career-title">
+    <div class="section-heading">
+        <span class="section-number" aria-hidden="true">2</span>
+        <h2 id="career-title">職歴</h2>
+        <span class="section-rule" aria-hidden="true"></span>
+        <span class="section-name-en">Career</span>
+    </div>
+
+    @if (Items is null)
+    {
+        <p class="career-status" role="status">職歴を読み込んでいます。</p>
+    }
+    else if (SortedItems.Count == 0)
+    {
+        <p class="career-status">表示できる職歴はありません。</p>
+    }
+    else
+    {
+        <div class="career-list">
+            @foreach (var item in SortedItems)
+            {
+                <article class="career-card">
+                    <div class="career-heading">
+                        <h3>@item.CompanyType</h3>
+                        <p class="career-role">@item.Role</p>
+                    </div>
+
+                    <p class="career-period">
+                        @item.StartDate
+                        <span aria-hidden="true">―</span>
+                        <span class="visually-hidden">から</span>
+                        @item.EndDate
+                    </p>
+
+                    @if (!string.IsNullOrWhiteSpace(item.Description))
+                    {
+                        <p class="career-description">@item.Description</p>
+                    }
+
+                    <button class="career-detail"
+                            type="button"
+                            disabled
+                            title="詳細表示は準備中です">詳細を見る →</button>
+                </article>
+            }
+        </div>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public IEnumerable<WorkHistoryItem>? Items { get; set; }
+
+    private IReadOnlyList<WorkHistoryItem> SortedItems => Items?
+        .OrderBy(item => item.SortOrder)
+        .ToList() ?? [];
+}

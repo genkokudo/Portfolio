@@ -1,16 +1,29 @@
-﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@inherits LayoutComponentBase
+@using Portfolio.Components.Layout
+@using Portfolio.Shared.Model
+@inject IHttpClientFactory HttpClientFactory
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-        <article class="content px-4">
+<div class="site-shell">
+    <PortfolioHeader AuthorName="@portfolioData?.AuthorNameAlphabet" />
+    <main id="main-content">
+        <CascadingValue Value="portfolioData">
             @Body
-        </article>
+        </CascadingValue>
     </main>
+    <PortfolioFooter AuthorName="@portfolioData?.AuthorNameAlphabet" />
 </div>
+
+@code {
+    private PortfolioData? portfolioData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("functions");
+        portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
+    }
+}

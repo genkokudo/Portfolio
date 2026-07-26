@@ -1,0 +1,85 @@
+@using Portfolio.Shared.Model
+
+<section id="skills" class="skills-section" aria-labelledby="skills-title">
+    <div class="section-heading">
+        <span class="section-number" aria-hidden="true">3</span>
+        <h2 id="skills-title">スキル</h2>
+        <span class="section-rule" aria-hidden="true"></span>
+        <span class="section-name-en">Skills</span>
+    </div>
+
+    <div class="rating-guide">
+        <h3>評価基準について</h3>
+        <div class="rating-guide-rows">
+            @foreach (var rank in RatingGuide)
+            {
+                <div class="rating-guide-row">
+                    <SkillStars Rating="@rank.Rating" />
+                    <p>@rank.Description</p>
+                    <span class="rating-label">@rank.Label</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (Items is null)
+    {
+        <p class="skills-status" role="status">スキルを読み込んでいます。</p>
+    }
+    else if (CategoryGroups.Count == 0)
+    {
+        <p class="skills-status">表示できるスキルはありません。</p>
+    }
+    else
+    {
+        <div class="skill-groups">
+            @foreach (var group in CategoryGroups)
+            {
+                <section class="skill-group" aria-labelledby="@group.HeadingId">
+                    <h3 id="@group.HeadingId">@group.Name</h3>
+                    <div class="skill-rows">
+                        @foreach (var item in group.Items)
+                        {
+                            <div class="skill-row">
+                                <p class="skill-name">@item.Name</p>
+                                <SkillStars Rating="@item.Rating" />
+                                <p class="skill-comment">@item.Comment</p>
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+        </div>
+    }
+</section>
+
+@code {
+    private static readonly RatingDefinition[] RatingGuide =
+    [
+        new(1, "学習中・基礎を習得している段階", "学習中"),
+        new(2, "基本的な操作・作業手順を一通り把握している", "把握済み"),
+        new(3, "個人制作レベルの成果物を作成可能", "制作可能"),
+        new(4, "調査を行いながら一人で業務レベルの成果が出せる", "業務対応可能"),
+        new(5, "実務で自立して安定対応可能", "自立対応可能")
+    ];
+
+    [Parameter]
+    public IEnumerable<SkillItem>? Items { get; set; }
+
+    private IReadOnlyList<SkillCategoryGroup> CategoryGroups => Items?
+        .Where(item => !string.IsNullOrWhiteSpace(item.Category))
+        .OrderBy(item => item.SortOrder)
+        .GroupBy(item => item.Category.Trim(), StringComparer.OrdinalIgnoreCase)
+        .Select((group, index) => new SkillCategoryGroup(
+            group.Key,
+            $"skill-category-{index + 1}",
+            group.ToList()))
+        .ToList() ?? [];
+
+    private sealed record RatingDefinition(int Rating, string Description, string Label);
+
+    private sealed record SkillCategoryGroup(
+        string Name,
+        string HeadingId,
+        IReadOnlyList<SkillItem> Items);
+}

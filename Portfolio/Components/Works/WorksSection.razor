@@ -1,0 +1,52 @@
+@using Portfolio.Shared.Model
+
+<section id="works" class="works-section" aria-labelledby="works-title">
+    <div class="section-heading">
+        <span class="section-number" aria-hidden="true">4</span>
+        <h2 id="works-title">制作物</h2>
+        <span class="section-rule" aria-hidden="true"></span>
+        <span class="section-name-en">Works</span>
+    </div>
+
+    @if (Items is null)
+    {
+        <p class="works-status" role="status">制作物を読み込んでいます。</p>
+    }
+    else if (PublishedWorks.Count == 0)
+    {
+        <p class="works-status">現在公開中の制作物はありません。</p>
+    }
+    else
+    {
+        <div class="work-categories">
+            @foreach (var category in Categories)
+            {
+                var works = PublishedWorks
+                    .Where(item => item.Category == category.Category)
+                    .ToList();
+
+                if (works.Count > 0)
+                {
+                    <WorkCategoryCarousel CategoryName="@category.Name" Items="@works" />
+                }
+            }
+        </div>
+    }
+</section>
+
+@code {
+    private static readonly (WorkCategory Category, string Name)[] Categories =
+    [
+        (WorkCategory.Banner, "バナー"),
+        (WorkCategory.Flyer, "フライヤー")
+    ];
+
+    [Parameter]
+    public IEnumerable<WorkItem>? Items { get; set; }
+
+    private IReadOnlyList<WorkItem> PublishedWorks => Items?
+        .Where(item => item.IsPublished)
+        .OrderBy(item => item.SortOrder)
+        .ThenByDescending(item => item.CreatedDate)
+        .ToList() ?? [];
+}

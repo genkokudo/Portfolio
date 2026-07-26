@@ -1,0 +1,222 @@
+.skills-section {
+    width: min(calc(100% - 106px), 1334px);
+    margin-inline: auto;
+}
+
+.section-heading {
+    display: flex;
+    min-height: 81px;
+    gap: 24px;
+    align-items: center;
+}
+
+.section-number {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--color-navy);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 33px;
+}
+
+.section-rule {
+    height: 2px;
+    background: var(--color-border-default);
+    flex: 1;
+}
+
+.section-name-en {
+    color: #4a4a48;
+    font-size: 20px;
+    line-height: 23.8px;
+}
+
+.rating-guide,
+.skill-group {
+    overflow: hidden;
+    border: 1px solid var(--color-text-secondary);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.rating-guide h3,
+.skill-group h3 {
+    display: flex;
+    height: 59px;
+    margin: 0;
+    padding-inline: 44px;
+    border-bottom: 1px solid var(--color-text-secondary);
+    background: var(--color-background-badge);
+    align-items: center;
+    color: var(--color-accent);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30.4px;
+}
+
+.rating-guide-row,
+.skill-row {
+    display: grid;
+    min-height: 59px;
+    padding: 12px 44px;
+    border-bottom: 1px solid var(--color-text-secondary);
+    gap: 32px;
+    align-items: center;
+}
+
+.rating-guide-row:last-child,
+.skill-row:last-child {
+    border-bottom: 0;
+}
+
+.rating-guide-row {
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+}
+
+.rating-guide-row p {
+    margin: 0;
+    color: var(--color-text-gray);
+    font-size: 20px;
+    line-height: 30.4px;
+}
+
+.rating-label {
+    display: inline-flex;
+    height: 35px;
+    padding-inline: 23px;
+    border-radius: 8px;
+    background: var(--color-background-badge);
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 19.5px;
+    white-space: nowrap;
+}
+
+.skill-groups {
+    display: flex;
+    margin-top: 35px;
+    gap: 38px;
+    flex-direction: column;
+}
+
+.skill-row {
+    grid-template-columns: 260px 120px minmax(0, 1fr);
+}
+
+.skill-name,
+.skill-comment {
+    margin: 0;
+    line-height: 30.4px;
+}
+
+.skill-name {
+    color: var(--color-navy);
+    font-size: 20px;
+}
+
+.skill-comment {
+    color: var(--color-text-secondary);
+    font-size: 16px;
+}
+
+.skills-status {
+    min-height: 180px;
+    margin: 35px 0 0;
+    padding: 48px;
+    color: var(--color-text-gray);
+    font-size: 18px;
+    text-align: center;
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .skills-section {
+        width: calc(100% - 64px);
+    }
+
+    .section-heading {
+        min-height: 64px;
+        gap: 14px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .section-name-en {
+        font-size: 14px;
+    }
+
+    .rating-guide,
+    .skill-group {
+        border-radius: 12px;
+    }
+
+    .rating-guide h3,
+    .skill-group h3 {
+        height: 52px;
+        padding-inline: 24px;
+        font-size: 16px;
+    }
+
+    .rating-guide-row,
+    .skill-row {
+        min-height: 50px;
+        padding: 10px 24px;
+        gap: 20px;
+    }
+
+    .rating-guide-row {
+        grid-template-columns: 100px minmax(0, 1fr) auto;
+    }
+
+    .rating-guide-row p {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .rating-label {
+        height: 30px;
+        padding-inline: 14px;
+        font-size: 13px;
+    }
+
+    .skill-groups {
+        margin-top: 28px;
+        gap: 28px;
+    }
+
+    .skill-row {
+        grid-template-columns: 190px 100px minmax(0, 1fr);
+    }
+
+    .skill-name {
+        font-size: 16px;
+    }
+
+    .skill-comment {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
