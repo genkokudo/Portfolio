@@ -143,3 +143,80 @@
     font-size: 18px;
     text-align: center;
 }
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .skills-section {
+        width: calc(100% - 64px);
+    }
+
+    .section-heading {
+        min-height: 64px;
+        gap: 14px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .section-name-en {
+        font-size: 14px;
+    }
+
+    .rating-guide,
+    .skill-group {
+        border-radius: 12px;
+    }
+
+    .rating-guide h3,
+    .skill-group h3 {
+        height: 52px;
+        padding-inline: 24px;
+        font-size: 16px;
+    }
+
+    .rating-guide-row,
+    .skill-row {
+        min-height: 50px;
+        padding: 10px 24px;
+        gap: 20px;
+    }
+
+    .rating-guide-row {
+        grid-template-columns: 100px minmax(0, 1fr) auto;
+    }
+
+    .rating-guide-row p {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .rating-label {
+        height: 30px;
+        padding-inline: 14px;
+        font-size: 13px;
+    }
+
+    .skill-groups {
+        margin-top: 28px;
+        gap: 28px;
+    }
+
+    .skill-row {
+        grid-template-columns: 190px 100px minmax(0, 1fr);
+    }
+
+    .skill-name {
+        font-size: 16px;
+    }
+
+    .skill-comment {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}

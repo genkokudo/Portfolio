@@ -3,7 +3,7 @@
 <section class="work-category" aria-label="@CategoryName">
     <h3>@CategoryName</h3>
 
-    <div class="carousel-shell">
+    <div class="carousel-shell carousel-shell--desktop">
         <MudCarousel TData="IReadOnlyList<WorkItem>"
                      ItemsSource="@Pages"
                      Class="works-carousel"
@@ -24,10 +24,33 @@
             </ItemTemplate>
         </MudCarousel>
     </div>
+
+    <div class="carousel-shell carousel-shell--tablet">
+        <MudCarousel TData="IReadOnlyList<WorkItem>"
+                     ItemsSource="@TabletPages"
+                     Class="works-carousel"
+                     Style="@TabletCarouselStyle"
+                     ShowArrows="@HasMultipleTabletPages"
+                     ShowBullets="@HasMultipleTabletPages"
+                     ArrowsColor="Color.Primary"
+                     BulletsColor="Color.Primary"
+                     EnableSwipeGesture="true"
+                     AutoCycle="false">
+            <ItemTemplate Context="page">
+                <div class="works-page @(HasMultipleTabletPages ? "works-page--with-navigation" : "works-page--without-navigation")">
+                    @foreach (var work in page)
+                    {
+                        <WorkCard Work="@work" />
+                    }
+                </div>
+            </ItemTemplate>
+        </MudCarousel>
+    </div>
 </section>
 
 @code {
-    private const int PageSize = 4;
+    private const int DesktopPageSize = 4;
+    private const int TabletPageSize = 2;
 
     [Parameter, EditorRequired]
     public string CategoryName { get; set; } = string.Empty;
@@ -36,9 +59,12 @@
     public IReadOnlyList<WorkItem> Items { get; set; } = [];
 
     private IReadOnlyList<IReadOnlyList<WorkItem>> Pages { get; set; } = [];
+    private IReadOnlyList<IReadOnlyList<WorkItem>> TabletPages { get; set; } = [];
     private bool HasMultiplePages => Pages.Count > 1;
+    private bool HasMultipleTabletPages => TabletPages.Count > 1;
     private WorkCategory Category => Items.FirstOrDefault()?.Category ?? WorkCategory.Unknown;
     private string CarouselStyle => $"height: {CarouselHeight}px;";
+    private string TabletCarouselStyle => $"height: {TabletCarouselHeight}px;";
 
     private int CarouselHeight => (Category, HasMultiplePages) switch
     {
@@ -48,10 +74,23 @@
         (_, false) => 415
     };
 
+    private int TabletCarouselHeight => (Category, HasMultipleTabletPages) switch
+    {
+        (WorkCategory.Flyer, true) => 650,
+        (WorkCategory.Flyer, false) => 605,
+        (_, true) => 510,
+        (_, false) => 465
+    };
+
     protected override void OnParametersSet()
     {
         Pages = Items
-            .Chunk(PageSize)
+            .Chunk(DesktopPageSize)
+            .Select(page => (IReadOnlyList<WorkItem>)page)
+            .ToList();
+
+        TabletPages = Items
+            .Chunk(TabletPageSize)
             .Select(page => (IReadOnlyList<WorkItem>)page)
             .ToList();
     }

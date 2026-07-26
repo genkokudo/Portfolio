@@ -61,3 +61,33 @@
     font-size: 18px;
     text-align: center;
 }
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .works-section {
+        width: calc(100% - 64px);
+        padding-bottom: 48px;
+    }
+
+    .section-heading {
+        min-height: 64px;
+        gap: 14px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .section-name-en {
+        font-size: 14px;
+    }
+
+    .work-categories {
+        gap: 24px;
+    }
+}

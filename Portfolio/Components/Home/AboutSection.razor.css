@@ -178,3 +178,86 @@
     font-size: 18px;
     text-align: center;
 }
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .about-section {
+        width: calc(100% - 64px);
+    }
+
+    .section-heading {
+        min-height: 64px;
+        gap: 14px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .section-name-en {
+        font-size: 14px;
+    }
+
+    .about-content {
+        min-height: 399px;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .profile-image-frame {
+        width: 112px;
+        height: 112px;
+        font-size: 34px;
+    }
+
+    .profile-details {
+        padding-inline: 0;
+    }
+
+    .profile-name {
+        min-height: 34px;
+        padding-block: 2px;
+        font-size: 21px;
+    }
+
+    .profile-name-reading {
+        font-size: 14px;
+    }
+
+    .profile-title {
+        min-height: 35px;
+        padding-block: 2px;
+        font-size: 17px;
+    }
+
+    .profile-description {
+        min-height: 0;
+        padding-block: 4px 12px;
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    .profile-tags {
+        min-height: 0;
+        padding: 0;
+        gap: 8px;
+    }
+
+    .profile-tags li {
+        height: 30px;
+        padding-inline: 14px;
+        font-size: 13px;
+    }
+
+    .github-link {
+        min-height: 42px;
+        margin-top: 14px;
+        padding: 11px 18px;
+        font-size: 15px;
+    }
+}

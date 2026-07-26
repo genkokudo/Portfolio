@@ -23,6 +23,10 @@
     background: var(--color-page-background);
 }
 
+.carousel-shell--tablet {
+    display: none;
+}
+
 .carousel-shell ::deep .works-carousel {
     background: var(--color-page-background);
 }
@@ -46,4 +50,38 @@
 
 .works-page--without-navigation {
     padding-bottom: 16px;
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .work-category {
+        border-radius: 12px;
+    }
+
+    .work-category h3 {
+        height: 52px;
+        padding-inline: 24px;
+        font-size: 16px;
+    }
+
+    .carousel-shell--desktop {
+        display: none;
+    }
+
+    .carousel-shell--tablet {
+        display: block;
+    }
+
+    .works-page {
+        padding: 20px 28px 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .works-page--with-navigation {
+        padding-bottom: 56px;
+    }
+
+    .works-page--without-navigation {
+        padding-bottom: 16px;
+    }
 }

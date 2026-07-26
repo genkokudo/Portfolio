@@ -73,3 +73,42 @@ h1 {
         background: #316dcc;
         color: #fff;
     }
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .hero {
+        height: auto;
+        min-height: 460px;
+    }
+
+    .hero-inner {
+        min-height: 460px;
+        padding: 40px 32px 36px;
+        gap: 20px;
+    }
+
+    .hero-tag {
+        width: auto;
+        height: 44px;
+        padding-inline: 22px;
+        font-size: 18px;
+    }
+
+    h1 {
+        width: 100%;
+        font-size: clamp(30px, 4.32vw, 36px);
+        letter-spacing: -.4px;
+        line-height: 1.35;
+    }
+
+    .hero-description {
+        width: 100%;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .hero-actions a {
+        min-height: 44px;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
