@@ -41,7 +41,7 @@ h1 {
 }
 
 .hero-description {
-    width: 690px;
+    width: 1000px;
     margin: 0;
     color: var(--color-hero-text);
     font-size: 20px;
