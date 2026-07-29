@@ -37,6 +37,7 @@ h1 {
     font-weight: 700;
     letter-spacing: -.56px;
     line-height: 72.8px;
+    white-space: pre-line;
 }
 
 .hero-description {
@@ -46,6 +47,7 @@ h1 {
     font-size: 20px;
     font-weight: 400;
     line-height: 30.4px;
+    white-space: pre-line;
 }
 
 .hero-actions {
