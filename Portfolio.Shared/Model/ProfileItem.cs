@@ -17,6 +17,8 @@ public class ProfileItem
     public string ProfessionalTitle { get; set; } = string.Empty;
     [JsonPropertyName("heroTitle")]
     public string HeroTitle { get; set; } = string.Empty;
+    [JsonPropertyName("heroDescription")]
+    public string HeroDescription { get; set; } = string.Empty;
     [JsonPropertyName("profileDescription")]
     public string ProfileDescription { get; set; } = string.Empty;
     [JsonPropertyName("gitHubUrl")]
