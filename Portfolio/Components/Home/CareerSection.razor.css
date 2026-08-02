@@ -126,6 +126,17 @@
     opacity: .65;
 }
 
+.career-detail:not(:disabled) {
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.career-detail:not(:disabled):hover,
+.career-detail:not(:disabled):focus-visible {
+    background: var(--color-accent);
+    color: #fff;
+}
+
 .career-status {
     min-height: 313px;
     margin: 17px 0 0;

@@ -1,0 +1,405 @@
+From 0584eedbbf048b788e116765eafbc8695ac1de1e Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Sat, 1 Aug 2026 23:20:58 -0700
+Subject: [PATCH] feat: add career project detail dialog
+
+---
+ .../Components/Home/CareerDetailDialog.razor  | 123 ++++++++++++
+ .../Home/CareerDetailDialog.razor.css         | 178 ++++++++++++++++++
+ Portfolio/Components/Home/CareerSection.razor |  32 +++-
+ .../Components/Home/CareerSection.razor.css   |  11 ++
+ 4 files changed, 342 insertions(+), 2 deletions(-)
+ create mode 100644 Portfolio/Components/Home/CareerDetailDialog.razor
+ create mode 100644 Portfolio/Components/Home/CareerDetailDialog.razor.css
+
+diff --git a/Portfolio/Components/Home/CareerDetailDialog.razor b/Portfolio/Components/Home/CareerDetailDialog.razor
+new file mode 100644
+index 0000000..29ecd94
+--- /dev/null
++++ b/Portfolio/Components/Home/CareerDetailDialog.razor
+@@ -0,0 +1,123 @@
++@using Portfolio.Shared.Model
++
++<MudDialog>
++    <DialogContent>
++        <header class="career-summary">
++            <div class="career-summary-heading">
++                <h2>@Item.CompanyType</h2>
++                @if (!string.IsNullOrWhiteSpace(Item.Role))
++                {
++                    <p class="career-summary-role">@Item.Role</p>
++                }
++            </div>
++
++            <p class="career-summary-period">
++                @Item.StartDate
++                <span aria-hidden="true">―</span>
++                <span class="visually-hidden">から</span>
++                @Item.EndDate
++            </p>
++
++            @if (!string.IsNullOrWhiteSpace(Item.Description))
++            {
++                <p class="career-summary-description">@Item.Description</p>
++            }
++        </header>
++
++        <h3 class="projects-heading">担当プロジェクト</h3>
++
++        <MudExpansionPanels MultiExpansion="false"
++                            Outlined="true"
++                            Elevation="0"
++                            Class="project-panels">
++            @for (var index = 0; index < Item.Projects.Count; index++)
++            {
++                var project = Item.Projects[index];
++
++                <MudExpansionPanel Text="@GetProjectTitle(project, index)"
++                                   Class="project-panel">
++                    <div class="project-details">
++                        <div class="project-overview-grid">
++                            @if (!string.IsNullOrWhiteSpace(project.Period))
++                            {
++                                <section class="project-detail-block">
++                                    <h4>期間</h4>
++                                    <p>@project.Period</p>
++                                </section>
++                            }
++
++                            @if (!string.IsNullOrWhiteSpace(project.RoleAndScale))
++                            {
++                                <section class="project-detail-block">
++                                    <h4>役割・規模</h4>
++                                    <p>@project.RoleAndScale</p>
++                                </section>
++                            }
++                        </div>
++
++                        @if (!string.IsNullOrWhiteSpace(project.Overview))
++                        {
++                            <section class="project-detail-block">
++                                <h4>概要</h4>
++                                <p>@project.Overview</p>
++                            </section>
++                        }
++
++                        @if (HasItems(project.Phases))
++                        {
++                            <section class="project-detail-block">
++                                <h4>担当工程</h4>
++                                <ul class="project-tags" aria-label="担当工程">
++                                    @foreach (var phase in project.Phases.Where(HasText))
++                                    {
++                                        <li>@phase</li>
++                                    }
++                                </ul>
++                            </section>
++                        }
++
++                        @if (HasItems(project.Technologies))
++                        {
++                            <section class="project-detail-block">
++                                <h4>使用技術</h4>
++                                <ul class="project-tags" aria-label="使用技術">
++                                    @foreach (var technology in project.Technologies.Where(HasText))
++                                    {
++                                        <li>@technology</li>
++                                    }
++                                </ul>
++                            </section>
++                        }
++
++                        @if (HasItems(project.Contributions))
++                        {
++                            <section class="project-detail-block">
++                                <h4>担当内容・実績</h4>
++                                <ul class="contribution-list">
++                                    @foreach (var contribution in project.Contributions.Where(HasText))
++                                    {
++                                        <li>@contribution</li>
++                                    }
++                                </ul>
++                            </section>
++                        }
++                    </div>
++                </MudExpansionPanel>
++            }
++        </MudExpansionPanels>
++    </DialogContent>
++</MudDialog>
++
++@code {
++    [Parameter, EditorRequired]
++    public WorkHistoryItem Item { get; set; } = new();
++
++    private static string GetProjectTitle(CareerProjectItem project, int index) =>
++        string.IsNullOrWhiteSpace(project.Title)
++            ? $"プロジェクト {index + 1}"
++            : project.Title;
++
++    private static bool HasItems(IEnumerable<string>? items) => items?.Any(HasText) == true;
++
++    private static bool HasText(string value) => !string.IsNullOrWhiteSpace(value);
++}
+diff --git a/Portfolio/Components/Home/CareerDetailDialog.razor.css b/Portfolio/Components/Home/CareerDetailDialog.razor.css
+new file mode 100644
+index 0000000..5ffff9b
+--- /dev/null
++++ b/Portfolio/Components/Home/CareerDetailDialog.razor.css
+@@ -0,0 +1,178 @@
++.career-summary {
++    padding: 20px 24px;
++    border-left: 6px solid var(--color-accent);
++    background: var(--color-background-badge);
++    color: var(--color-navy);
++}
++
++.career-summary-heading {
++    display: flex;
++    gap: 16px;
++    align-items: baseline;
++    flex-wrap: wrap;
++}
++
++.career-summary h2,
++.career-summary-role,
++.career-summary-period,
++.career-summary-description {
++    margin: 0;
++}
++
++.career-summary h2 {
++    font-size: 24px;
++    font-weight: 600;
++    line-height: 1.5;
++}
++
++.career-summary-role {
++    font-size: 18px;
++    line-height: 1.5;
++}
++
++.career-summary-period {
++    margin-top: 8px;
++    color: var(--color-text-secondary);
++    font-size: 16px;
++}
++
++.career-summary-period span[aria-hidden="true"] {
++    margin-inline: 6px;
++}
++
++.career-summary-description {
++    margin-top: 12px;
++    color: var(--color-text-gray);
++    font-size: 16px;
++    line-height: 1.7;
++    white-space: pre-line;
++}
++
++.projects-heading {
++    margin: 28px 0 12px;
++    color: var(--color-navy);
++    font-size: 20px;
++    font-weight: 600;
++}
++
++.project-panels ::deep .project-panel {
++    color: var(--color-navy);
++}
++
++.project-panels ::deep .mud-expand-panel-header {
++    min-height: 58px;
++    font-size: 17px;
++    font-weight: 500;
++}
++
++.project-details {
++    display: flex;
++    padding-block: 4px 20px;
++    gap: 20px;
++    flex-direction: column;
++}
++
++.project-overview-grid {
++    display: grid;
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++    gap: 20px;
++}
++
++.project-detail-block h4 {
++    margin: 0 0 7px;
++    color: var(--color-accent);
++    font-size: 15px;
++    font-weight: 600;
++}
++
++.project-detail-block p {
++    margin: 0;
++    color: var(--color-text-gray);
++    font-size: 15px;
++    line-height: 1.7;
++    white-space: pre-line;
++}
++
++.project-tags {
++    display: flex;
++    margin: 0;
++    padding: 0;
++    gap: 8px;
++    flex-wrap: wrap;
++    list-style: none;
++}
++
++.project-tags li {
++    display: inline-flex;
++    min-height: 30px;
++    padding: 5px 12px;
++    border-radius: 6px;
++    background: var(--color-background-badge);
++    align-items: center;
++    color: var(--color-accent);
++    font-size: 13px;
++    line-height: 1.4;
++}
++
++.contribution-list {
++    margin: 0;
++    padding-left: 24px;
++    color: var(--color-text-gray);
++    font-size: 15px;
++    line-height: 1.7;
++}
++
++.contribution-list li + li {
++    margin-top: 6px;
++}
++
++@media (min-width: 600px) and (max-width: 1279px) {
++    .career-summary {
++        padding: 16px 18px;
++        border-left-width: 5px;
++    }
++
++    .career-summary-heading {
++        gap: 10px;
++    }
++
++    .career-summary h2 {
++        font-size: 20px;
++    }
++
++    .career-summary-role {
++        font-size: 16px;
++    }
++
++    .career-summary-period,
++    .career-summary-description {
++        font-size: 14px;
++    }
++
++    .projects-heading {
++        margin-top: 22px;
++        font-size: 18px;
++    }
++
++    .project-panels ::deep .mud-expand-panel-header {
++        min-height: 52px;
++        font-size: 15px;
++    }
++
++    .project-details {
++        gap: 16px;
++    }
++
++    .project-detail-block h4,
++    .project-detail-block p,
++    .contribution-list {
++        font-size: 14px;
++    }
++}
++
++@media (max-width: 767px) {
++    .project-overview-grid {
++        grid-template-columns: 1fr;
++        gap: 16px;
++    }
++}
+diff --git a/Portfolio/Components/Home/CareerSection.razor b/Portfolio/Components/Home/CareerSection.razor
+index 6cd99dc..0f217ef 100644
+--- a/Portfolio/Components/Home/CareerSection.razor
++++ b/Portfolio/Components/Home/CareerSection.razor
+@@ -1,4 +1,5 @@
+ @using Portfolio.Shared.Model
++@inject IDialogService DialogService
+ 
+ <section id="career" class="career-section" aria-labelledby="career-title">
+     <div class="section-heading">
+@@ -41,8 +42,10 @@
+ 
+                     <button class="career-detail"
+                             type="button"
+-                            disabled
+-                            title="詳細表示は準備中です">詳細を見る →</button>
++                            disabled="@(!HasProjects(item))"
++                            title="@(HasProjects(item) ? "プロジェクト詳細を表示" : "表示できるプロジェクトはありません")"
++                            aria-haspopup="dialog"
++                            @onclick="() => OpenDetailsAsync(item)">詳細を見る →</button>
+                 </article>
+             }
+         </div>
+@@ -56,4 +59,29 @@
+     private IReadOnlyList<WorkHistoryItem> SortedItems => Items?
+         .OrderBy(item => item.SortOrder)
+         .ToList() ?? [];
++
++    private static bool HasProjects(WorkHistoryItem item) => item.Projects?.Count > 0;
++
++    private async Task OpenDetailsAsync(WorkHistoryItem item)
++    {
++        if (!HasProjects(item))
++        {
++            return;
++        }
++
++        var parameters = new DialogParameters<CareerDetailDialog>
++        {
++            { dialog => dialog.Item, item }
++        };
++
++        var options = new DialogOptions
++        {
++            CloseButton = true,
++            CloseOnEscapeKey = true,
++            FullWidth = true,
++            MaxWidth = MaxWidth.Medium
++        };
++
++        await DialogService.ShowAsync<CareerDetailDialog>("職歴詳細", parameters, options);
++    }
+ }
+diff --git a/Portfolio/Components/Home/CareerSection.razor.css b/Portfolio/Components/Home/CareerSection.razor.css
+index f9b2d14..80ff8d7 100644
+--- a/Portfolio/Components/Home/CareerSection.razor.css
++++ b/Portfolio/Components/Home/CareerSection.razor.css
+@@ -126,6 +126,17 @@
+     opacity: .65;
+ }
+ 
++.career-detail:not(:disabled) {
++    cursor: pointer;
++    transition: background-color 160ms ease, color 160ms ease;
++}
++
++.career-detail:not(:disabled):hover,
++.career-detail:not(:disabled):focus-visible {
++    background: var(--color-accent);
++    color: #fff;
++}
++
+ .career-status {
+     min-height: 313px;
+     margin: 17px 0 0;
+-- 
+2.51.1
+

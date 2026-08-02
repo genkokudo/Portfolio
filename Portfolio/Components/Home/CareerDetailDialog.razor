@@ -1,0 +1,123 @@
+@using Portfolio.Shared.Model
+
+<MudDialog>
+    <DialogContent>
+        <header class="career-summary">
+            <div class="career-summary-heading">
+                <h2>@Item.CompanyType</h2>
+                @if (!string.IsNullOrWhiteSpace(Item.Role))
+                {
+                    <p class="career-summary-role">@Item.Role</p>
+                }
+            </div>
+
+            <p class="career-summary-period">
+                @Item.StartDate
+                <span aria-hidden="true">―</span>
+                <span class="visually-hidden">から</span>
+                @Item.EndDate
+            </p>
+
+            @if (!string.IsNullOrWhiteSpace(Item.Description))
+            {
+                <p class="career-summary-description">@Item.Description</p>
+            }
+        </header>
+
+        <h3 class="projects-heading">担当プロジェクト</h3>
+
+        <MudExpansionPanels MultiExpansion="false"
+                            Outlined="true"
+                            Elevation="0"
+                            Class="project-panels">
+            @for (var index = 0; index < Item.Projects.Count; index++)
+            {
+                var project = Item.Projects[index];
+
+                <MudExpansionPanel Text="@GetProjectTitle(project, index)"
+                                   Class="project-panel">
+                    <div class="project-details">
+                        <div class="project-overview-grid">
+                            @if (!string.IsNullOrWhiteSpace(project.Period))
+                            {
+                                <section class="project-detail-block">
+                                    <h4>期間</h4>
+                                    <p>@project.Period</p>
+                                </section>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(project.RoleAndScale))
+                            {
+                                <section class="project-detail-block">
+                                    <h4>役割・規模</h4>
+                                    <p>@project.RoleAndScale</p>
+                                </section>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(project.Overview))
+                        {
+                            <section class="project-detail-block">
+                                <h4>概要</h4>
+                                <p>@project.Overview</p>
+                            </section>
+                        }
+
+                        @if (HasItems(project.Phases))
+                        {
+                            <section class="project-detail-block">
+                                <h4>担当工程</h4>
+                                <ul class="project-tags" aria-label="担当工程">
+                                    @foreach (var phase in project.Phases.Where(HasText))
+                                    {
+                                        <li>@phase</li>
+                                    }
+                                </ul>
+                            </section>
+                        }
+
+                        @if (HasItems(project.Technologies))
+                        {
+                            <section class="project-detail-block">
+                                <h4>使用技術</h4>
+                                <ul class="project-tags" aria-label="使用技術">
+                                    @foreach (var technology in project.Technologies.Where(HasText))
+                                    {
+                                        <li>@technology</li>
+                                    }
+                                </ul>
+                            </section>
+                        }
+
+                        @if (HasItems(project.Contributions))
+                        {
+                            <section class="project-detail-block">
+                                <h4>担当内容・実績</h4>
+                                <ul class="contribution-list">
+                                    @foreach (var contribution in project.Contributions.Where(HasText))
+                                    {
+                                        <li>@contribution</li>
+                                    }
+                                </ul>
+                            </section>
+                        }
+                    </div>
+                </MudExpansionPanel>
+            }
+        </MudExpansionPanels>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [Parameter, EditorRequired]
+    public WorkHistoryItem Item { get; set; } = new();
+
+    private static string GetProjectTitle(CareerProjectItem project, int index) =>
+        string.IsNullOrWhiteSpace(project.Title)
+            ? $"プロジェクト {index + 1}"
+            : project.Title;
+
+    private static bool HasItems(IEnumerable<string>? items) => items?.Any(HasText) == true;
+
+    private static bool HasText(string value) => !string.IsNullOrWhiteSpace(value);
+}

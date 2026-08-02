@@ -1,4 +1,5 @@
 @using Portfolio.Shared.Model
+@inject IDialogService DialogService
 
 <section id="career" class="career-section" aria-labelledby="career-title">
     <div class="section-heading">
@@ -41,8 +42,10 @@
 
                     <button class="career-detail"
                             type="button"
-                            disabled
-                            title="詳細表示は準備中です">詳細を見る →</button>
+                            disabled="@(!HasProjects(item))"
+                            title="@(HasProjects(item) ? "プロジェクト詳細を表示" : "表示できるプロジェクトはありません")"
+                            aria-haspopup="dialog"
+                            @onclick="() => OpenDetailsAsync(item)">詳細を見る →</button>
                 </article>
             }
         </div>
@@ -56,4 +59,29 @@
     private IReadOnlyList<WorkHistoryItem> SortedItems => Items?
         .OrderBy(item => item.SortOrder)
         .ToList() ?? [];
+
+    private static bool HasProjects(WorkHistoryItem item) => item.Projects?.Count > 0;
+
+    private async Task OpenDetailsAsync(WorkHistoryItem item)
+    {
+        if (!HasProjects(item))
+        {
+            return;
+        }
+
+        var parameters = new DialogParameters<CareerDetailDialog>
+        {
+            { dialog => dialog.Item, item }
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.Medium
+        };
+
+        await DialogService.ShowAsync<CareerDetailDialog>("職歴詳細", parameters, options);
+    }
 }
