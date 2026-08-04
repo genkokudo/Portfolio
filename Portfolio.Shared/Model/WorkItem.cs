@@ -12,6 +12,7 @@ namespace Portfolio.Shared.Model
         Flyer = 1,
         Banner = 2
     }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum WorkProductionType
     {
         Unknown,

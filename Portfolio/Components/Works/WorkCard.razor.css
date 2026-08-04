@@ -1,9 +1,17 @@
 .work-card {
+    position: relative;
     overflow: hidden;
     min-width: 0;
     border-radius: 8px;
     background: #fff;
     box-shadow: 0 1px 4px rgb(13 27 62 / 10%);
+    transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.work-card:hover,
+.work-card:focus-within {
+    box-shadow: 0 6px 18px rgb(13 27 62 / 18%);
+    transform: translateY(-2px);
 }
 
 .thumbnail-frame {
@@ -62,6 +70,22 @@
     color: var(--color-text-secondary);
     font-size: 14px;
     line-height: 1.5;
+}
+
+.work-card-trigger {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.work-card-trigger:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: -3px;
 }
 
 @media (min-width: 600px) and (max-width: 1279px) {

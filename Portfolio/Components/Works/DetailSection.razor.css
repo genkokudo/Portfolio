@@ -1,0 +1,35 @@
+.detail-section {
+    padding: 22px 24px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.detail-section h2 {
+    margin: 0 0 10px;
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.detail-section p {
+    margin: 0;
+    color: var(--color-text-gray);
+    font-size: 16px;
+    line-height: 1.75;
+    white-space: pre-line;
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .detail-section {
+        padding: 18px;
+    }
+
+    .detail-section h2 {
+        font-size: 16px;
+    }
+
+    .detail-section p {
+        font-size: 14px;
+    }
+}

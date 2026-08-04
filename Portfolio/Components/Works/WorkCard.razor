@@ -1,4 +1,5 @@
 @using Portfolio.Shared.Model
+@inject IDialogService DialogService
 
 <article class="work-card">
     <div class="thumbnail-frame @ThumbnailFrameClass">
@@ -21,6 +22,14 @@
             <p>@Work.Description</p>
         }
     </div>
+    <button class="work-card-trigger"
+            type="button"
+            aria-label="@($"{Work.Title}の詳細を表示")"
+            aria-haspopup="dialog"
+            title="作品詳細を表示"
+            @onclick="OpenDetailsAsync">
+        <span class="visually-hidden">@Work.Title の詳細を見る</span>
+    </button>
 </article>
 
 @code {
@@ -33,4 +42,23 @@
         WorkCategory.Flyer => "thumbnail-frame--flyer",
         _ => "thumbnail-frame--unknown"
     };
+
+    private async Task OpenDetailsAsync()
+    {
+        var parameters = new DialogParameters<WorkDetailDialog>
+        {
+            { dialog => dialog.Work, Work }
+        };
+
+        var options = new DialogOptions
+        {
+            BackdropClick = true,
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.ExtraLarge
+        };
+
+        await DialogService.ShowAsync<WorkDetailDialog>("作品詳細", parameters, options);
+    }
 }

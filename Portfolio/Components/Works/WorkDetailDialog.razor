@@ -1,0 +1,170 @@
+@using Portfolio.Shared.Model
+@inject IDialogService DialogService
+
+<MudDialog ContentStyle="max-height: calc(85vh - 64px); overflow-y: auto;">
+    <DialogContent>
+        <div class="work-intro">
+            <div class="work-image-area">
+                @if (string.IsNullOrWhiteSpace(PreviewImageUrl))
+                {
+                    <div class="work-image-placeholder">画像準備中</div>
+                }
+                else
+                {
+                    <button class="work-image-button"
+                            type="button"
+                            disabled="@(!CanExpandImage)"
+                            aria-label="@($"{Work.Title}の画像を拡大表示")"
+                            title="画像を拡大表示"
+                            @onclick="OpenImageAsync">
+                        <img src="@PreviewImageUrl"
+                             alt="@Work.Title"
+                             decoding="async" />
+                        @if (CanExpandImage)
+                        {
+                            <span class="zoom-label" aria-hidden="true">拡大表示</span>
+                        }
+                    </button>
+                }
+            </div>
+
+            <div class="work-basic-info">
+                <p class="work-kind">@CategoryName</p>
+                <h1>@Work.Title</h1>
+
+                @if (!string.IsNullOrWhiteSpace(Work.Description))
+                {
+                    <p class="work-lead">@Work.Description</p>
+                }
+
+                <dl class="work-meta">
+                    <div>
+                        <dt>種別</dt>
+                        <dd>@CategoryName</dd>
+                    </div>
+                    <div>
+                        <dt>制作区分</dt>
+                        <dd>@ProductionTypeName</dd>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Work.Size))
+                    {
+                        <div>
+                            <dt>サイズ</dt>
+                            <dd>@Work.Size</dd>
+                        </div>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Work.ProductionPeriod))
+                    {
+                        <div>
+                            <dt>制作期間</dt>
+                            <dd>@Work.ProductionPeriod</dd>
+                        </div>
+                    }
+                </dl>
+
+                @if (HasItems(Work.ToolsUsed))
+                {
+                    <section class="tools-section" aria-labelledby="tools-heading">
+                        <h2 id="tools-heading">使用ツール</h2>
+                        <ul class="detail-tags">
+                            @foreach (var tool in Work.ToolsUsed.Where(HasText))
+                            {
+                                <li>@tool</li>
+                            }
+                        </ul>
+                    </section>
+                }
+            </div>
+        </div>
+
+        <div class="work-description-sections">
+            @if (!string.IsNullOrWhiteSpace(Work.Purpose))
+            {
+                <DetailSection Title="制作目的" Text="@Work.Purpose" />
+            }
+            @if (!string.IsNullOrWhiteSpace(Work.TargetAudience))
+            {
+                <DetailSection Title="ターゲット" Text="@Work.TargetAudience" />
+            }
+            @if (!string.IsNullOrWhiteSpace(Work.Requirements))
+            {
+                <DetailSection Title="制作条件・課題" Text="@Work.Requirements" />
+            }
+            @if (!string.IsNullOrWhiteSpace(Work.Concept))
+            {
+                <DetailSection Title="コンセプト" Text="@Work.Concept" />
+            }
+            @if (HasItems(Work.DesignPoints))
+            {
+                <DetailListSection Title="デザイン上の工夫" Items="@Work.DesignPoints" />
+            }
+            @if (HasItems(Work.Responsibilities))
+            {
+                <DetailListSection Title="担当範囲" Items="@Work.Responsibilities" Compact="true" />
+            }
+            @if (!string.IsNullOrWhiteSpace(Work.Reflection))
+            {
+                <DetailSection Title="振り返り" Text="@Work.Reflection" />
+            }
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [Parameter, EditorRequired]
+    public WorkItem Work { get; set; } = new();
+
+    private string PreviewImageUrl => !string.IsNullOrWhiteSpace(Work.ThumbnailUrl)
+        ? Work.ThumbnailUrl
+        : Work.FullImageUrl;
+
+    private string ExpandedImageUrl => !string.IsNullOrWhiteSpace(Work.FullImageUrl)
+        ? Work.FullImageUrl
+        : Work.ThumbnailUrl;
+
+    private bool CanExpandImage => !string.IsNullOrWhiteSpace(ExpandedImageUrl);
+
+    private string CategoryName => Work.Category switch
+    {
+        WorkCategory.Banner => "バナー",
+        WorkCategory.Flyer => "フライヤー",
+        _ => "未設定"
+    };
+
+    private string ProductionTypeName => Work.ProductionType switch
+    {
+        WorkProductionType.TrainingAssignment => "職業訓練課題",
+        WorkProductionType.PersonalProject => "自主制作",
+        WorkProductionType.ClientWork => "実案件",
+        _ => "未設定"
+    };
+
+    private async Task OpenImageAsync()
+    {
+        if (!CanExpandImage)
+        {
+            return;
+        }
+
+        var parameters = new DialogParameters<WorkImageDialog>
+        {
+            { dialog => dialog.ImageUrl, ExpandedImageUrl },
+            { dialog => dialog.AltText, Work.Title }
+        };
+
+        var options = new DialogOptions
+        {
+            BackdropClick = true,
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.ExtraLarge
+        };
+
+        await DialogService.ShowAsync<WorkImageDialog>("拡大画像", parameters, options);
+    }
+
+    private static bool HasItems(IEnumerable<string>? items) => items?.Any(HasText) == true;
+
+    private static bool HasText(string value) => !string.IsNullOrWhiteSpace(value);
+}

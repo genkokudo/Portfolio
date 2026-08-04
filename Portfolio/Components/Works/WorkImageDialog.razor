@@ -1,0 +1,25 @@
+<MudDialog ContentClass="expanded-image-dialog-content">
+    <DialogContent>
+        <div class="expanded-image-area">
+            <img src="@ImageUrl"
+                 alt="@AltText"
+                 decoding="async" />
+        </div>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [Parameter, EditorRequired]
+    public string ImageUrl { get; set; } = string.Empty;
+
+    [Parameter]
+    public string AltText { get; set; } = string.Empty;
+}
+
+<style>
+    .expanded-image-dialog-content {
+        max-height: calc(85vh - 64px);
+        overflow: auto;
+        padding: 0;
+    }
+</style>
