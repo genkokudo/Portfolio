@@ -24,7 +24,7 @@
     white-space: pre-line;
 }
 
-.detail-list li + li {
+.detail-list:not(.detail-list--compact) li + li {
     margin-top: 7px;
 }
 
