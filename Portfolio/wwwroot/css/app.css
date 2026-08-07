@@ -9,12 +9,25 @@
     --color-hero-text: #7a90b0;
     --color-text-secondary: #8899bb;
     --color-text-gray: #555566;
+    --anchor-scroll-offset: 96px;
 }
 
 html { min-height: 100%; scroll-behavior: smooth; }
 html, body { min-height: 100%; margin: 0; background: var(--color-page-background); font-family: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", sans-serif; }
 body { color: #334; }
 *, *::before, *::after { box-sizing: border-box; }
+
+#about,
+#skills,
+#works {
+    scroll-margin-top: var(--anchor-scroll-offset);
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    :root {
+        --anchor-scroll-offset: 88px;
+    }
+}
 
 h1:focus {
     outline: none;

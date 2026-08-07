@@ -17,5 +17,5 @@ public class PortfolioData
     public List<SkillItem> Skills { get; set; } = [];
     public List<WorkHistoryItem> WorkHistories { get; set; } = [];
     public List<WorkItem> Works { get; set; } = [];
+    public ContactSettings Contact { get; set; } = new();
 }
-
