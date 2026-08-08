@@ -1,0 +1,182 @@
+@page "/site-architecture"
+@using Portfolio.Shared.Model
+
+<PageTitle>サイトの技術構成 | @AuthorName</PageTitle>
+
+<article class="architecture-page">
+    <header class="architecture-hero">
+        <div class="architecture-hero-inner">
+            <p class="architecture-eyebrow">Site Architecture</p>
+            <h1>このサイトの技術構成</h1>
+            <p class="architecture-lead">
+                C#とAzureを中心に、デザイン、フロントエンド、API、データ管理、公開までを一貫して構築しています。
+                ここでは、このポートフォリオサイトで実際に使用している技術と設計上の工夫をご紹介します。
+            </p>
+        </div>
+    </header>
+
+    <div class="architecture-content">
+        <section class="architecture-section" aria-labelledby="system-overview-title">
+            <div class="architecture-section-heading">
+                <p>01</p>
+                <div>
+                    <span>System Overview</span>
+                    <h2 id="system-overview-title">システム構成</h2>
+                </div>
+            </div>
+
+            <p class="section-description">
+                Blazor WebAssemblyで構築した画面をAzure Static Web Appsで公開しています。
+                表示データはAzure FunctionsのAPIを通してCosmos DBから取得し、作品画像はAzure Blob Storageから配信します。
+            </p>
+
+            <div class="architecture-flow" aria-label="ポートフォリオサイトのシステム構成図">
+                <div class="flow-node flow-node--primary">
+                    <span>Frontend</span>
+                    <strong>Blazor WebAssembly</strong>
+                    <small>Azure Static Web Apps</small>
+                </div>
+
+                <div class="flow-branches">
+                    <div class="flow-branch">
+                        <span class="flow-label">データ取得</span>
+                        <div class="flow-node">
+                            <span>API</span>
+                            <strong>Azure Functions</strong>
+                            <small>.NET Isolated</small>
+                        </div>
+                        <div class="flow-arrow" aria-hidden="true">↓</div>
+                        <div class="flow-node">
+                            <span>Database</span>
+                            <strong>Cosmos DB</strong>
+                            <small>プロフィール・職歴・制作物</small>
+                        </div>
+                    </div>
+
+                    <div class="flow-branch">
+                        <span class="flow-label">画像配信</span>
+                        <div class="flow-node">
+                            <span>Storage</span>
+                            <strong>Azure Blob Storage</strong>
+                            <small>サムネイル・フルサイズ画像</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture-section" aria-labelledby="technology-title">
+            <div class="architecture-section-heading">
+                <p>02</p>
+                <div>
+                    <span>Technology Stack</span>
+                    <h2 id="technology-title">使用技術</h2>
+                </div>
+            </div>
+
+            <div class="technology-table-wrapper">
+                <table class="technology-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">分類</th>
+                            <th scope="col">技術</th>
+                            <th scope="col">用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">フロントエンド</th>
+                            <td>C# / .NET 10 / Blazor WebAssembly</td>
+                            <td>画面表示、コンポーネント、API連携</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">UI</th>
+                            <td>MudBlazor / CSS</td>
+                            <td>モーダル、カルーセル、レスポンシブ表示</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">API</th>
+                            <td>Azure Functions Isolated</td>
+                            <td>Cosmos DBからの表示データ取得</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">データ</th>
+                            <td>Azure Cosmos DB</td>
+                            <td>プロフィール、スキル、職歴、制作物の管理</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">画像</th>
+                            <td>Azure Blob Storage</td>
+                            <td>作品画像とサムネイルの配信</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">公開</th>
+                            <td>Azure Static Web Apps / GitHub Actions</td>
+                            <td>ビルドと自動デプロイ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="architecture-section" aria-labelledby="design-title">
+            <div class="architecture-section-heading">
+                <p>03</p>
+                <div>
+                    <span>Design Decisions</span>
+                    <h2 id="design-title">設計上の工夫</h2>
+                </div>
+            </div>
+
+            <div class="decision-grid">
+                <article class="decision-card">
+                    <span>01</span>
+                    <h3>表示データをDBで管理</h3>
+                    <p>プロフィールや制作物をCosmos DBで管理し、表示内容の更新をフロントエンドのコードから分離しています。</p>
+                </article>
+                <article class="decision-card">
+                    <span>02</span>
+                    <h3>データモデルを共有</h3>
+                    <p>Sharedプロジェクトを用意し、BlazorとAzure Functionsで同じデータモデルを参照できる構成にしています。</p>
+                </article>
+                <article class="decision-card">
+                    <span>03</span>
+                    <h3>画像サイズを使い分け</h3>
+                    <p>一覧ではWebPのサムネイルを表示し、詳細表示時だけフルサイズ画像を利用して、初期表示の負荷を抑えています。</p>
+                </article>
+                <article class="decision-card">
+                    <span>04</span>
+                    <h3>コンポーネント単位で実装</h3>
+                    <p>各セクションや詳細モーダルを部品として分割し、PCとタブレットの表示差分はCSSのMedia Queriesで調整しています。</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="architecture-section architecture-section--closing" aria-labelledby="development-title">
+            <div class="architecture-section-heading">
+                <p>04</p>
+                <div>
+                    <span>Development</span>
+                    <h2 id="development-title">デザインから公開まで</h2>
+                </div>
+            </div>
+
+            <p class="section-description">
+                FigmaでPC・タブレット向けの画面を設計し、Blazorコンポーネントとして実装しました。
+                ソースコードはGitHubで管理し、masterブランチへの反映を契機にGitHub ActionsからAzure Static Web Appsへデプロイしています。
+            </p>
+
+            <a class="back-to-home" href="/">
+                <span aria-hidden="true">←</span>
+                トップページへ戻る
+            </a>
+        </section>
+    </div>
+</article>
+
+@code {
+    [CascadingParameter]
+    private PortfolioData? PortfolioData { get; set; }
+
+    private string AuthorName => PortfolioData?.AuthorNameAlphabet ?? "Portfolio";
+}

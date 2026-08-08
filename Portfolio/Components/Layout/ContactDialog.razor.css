@@ -1,0 +1,52 @@
+.contact-status {
+    display: flex;
+    padding: 24px 16px 20px;
+    align-items: center;
+    color: var(--color-navy);
+    text-align: center;
+    flex-direction: column;
+}
+
+.contact-status-icon {
+    display: inline-flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-background-badge);
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.contact-status--enabled .contact-status-icon {
+    background: #e7f5ec;
+    color: #267a45;
+}
+
+.contact-status h2 {
+    margin: 20px 0 0;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.contact-status p {
+    margin: 12px 0 0;
+    color: var(--color-text-gray);
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .contact-status {
+        padding: 18px 12px 14px;
+    }
+
+    .contact-status h2 {
+        font-size: 19px;
+    }
+}

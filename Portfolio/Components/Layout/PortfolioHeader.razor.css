@@ -28,21 +28,30 @@
 
 .global-nav {
     display: flex;
-    gap: 72px;
+    gap: clamp(28px, 3.34vw, 48px);
     align-items: center;
 }
 
-    .global-nav a {
+    .global-nav a,
+    .global-nav button {
+        padding: 0;
+        border: 0;
+        background: transparent;
         color: var(--color-accent-light);
+        cursor: pointer;
         font-family: "JetBrains Mono", monospace;
-        font-size: 24px;
+        font-size: clamp(18px, 1.67vw, 24px);
         font-weight: 500;
         line-height: 1;
         text-decoration: none;
         transition: color 160ms ease;
+        white-space: nowrap;
     }
 
-        .global-nav a:hover, .global-nav a:focus-visible {
+        .global-nav a:hover,
+        .global-nav a:focus-visible,
+        .global-nav button:hover,
+        .global-nav button:focus-visible {
             color: #fff;
         }
 
@@ -60,10 +69,11 @@
     }
 
     .global-nav {
-        gap: clamp(12px, 3.36vw, 28px);
+        gap: clamp(9px, 2.16vw, 18px);
     }
 
-    .global-nav a {
-        font-size: clamp(12px, 1.8vw, 15px);
+    .global-nav a,
+    .global-nav button {
+        font-size: clamp(10px, 1.56vw, 13px);
     }
 }

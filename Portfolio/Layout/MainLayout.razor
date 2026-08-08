@@ -2,6 +2,7 @@
 @using Portfolio.Components.Layout
 @using Portfolio.Shared.Model
 @inject IHttpClientFactory HttpClientFactory
+@inject IDialogService DialogService
 
 <MudThemeProvider />
 <MudPopoverProvider />
@@ -9,13 +10,15 @@
 <MudSnackbarProvider />
 
 <div class="site-shell">
-    <PortfolioHeader AuthorName="@portfolioData?.AuthorNameAlphabet" />
+    <PortfolioHeader AuthorName="@portfolioData?.AuthorNameAlphabet"
+                     OnContactClick="OpenContactAsync" />
     <main id="main-content">
         <CascadingValue Value="portfolioData">
             @Body
         </CascadingValue>
     </main>
-    <PortfolioFooter AuthorName="@portfolioData?.AuthorNameAlphabet" />
+    <PortfolioFooter AuthorName="@portfolioData?.AuthorNameAlphabet"
+                     OnContactClick="OpenContactAsync" />
 </div>
 
 @code {
@@ -25,5 +28,24 @@
     {
         var client = HttpClientFactory.CreateClient("functions");
         portfolioData = await client.GetFromJsonAsync<PortfolioData>("GetPortfolioData");
+    }
+
+    private async Task OpenContactAsync()
+    {
+        var parameters = new DialogParameters<ContactDialog>
+        {
+            { dialog => dialog.Settings, portfolioData?.Contact }
+        };
+
+        var options = new DialogOptions
+        {
+            BackdropClick = true,
+            CloseButton = true,
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.Small
+        };
+
+        await DialogService.ShowAsync<ContactDialog>("お問い合わせ", parameters, options);
     }
 }

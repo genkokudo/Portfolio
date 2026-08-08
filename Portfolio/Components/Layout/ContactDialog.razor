@@ -1,0 +1,46 @@
+@using Portfolio.Shared.Model
+
+<MudDialog>
+    <DialogContent>
+        @if (Settings is null)
+        {
+            <div class="contact-status contact-status--loading" role="status">
+                <span class="contact-status-icon" aria-hidden="true">…</span>
+                <h2>お問い合わせ情報を読み込んでいます</h2>
+                <p>しばらく待ってから、もう一度お試しください。</p>
+            </div>
+        }
+        else if (Settings.IsEnabled)
+        {
+            <div class="contact-status contact-status--enabled" role="status">
+                <span class="contact-status-icon" aria-hidden="true">✓</span>
+                <h2>お問い合わせを受け付けています</h2>
+                <p>お問い合わせフォームは現在準備中です。公開までしばらくお待ちください。</p>
+            </div>
+        }
+        else
+        {
+            <div class="contact-status contact-status--disabled" role="status">
+                <span class="contact-status-icon" aria-hidden="true">i</span>
+                <h2>現在、お問い合わせは受け付けていません</h2>
+                <p>@UnavailableMessage</p>
+            </div>
+        }
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [Parameter]
+    public ContactSettings? Settings { get; set; }
+
+    private string UnavailableMessage
+    {
+        get
+        {
+            var message = Settings?.UnavailableMessage;
+            return string.IsNullOrWhiteSpace(message)
+                ? "受付を再開しましたら、このサイトでお知らせします。"
+                : message;
+        }
+    }
+}

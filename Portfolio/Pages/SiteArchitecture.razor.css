@@ -1,0 +1,337 @@
+.architecture-page {
+    color: var(--color-navy);
+}
+
+.architecture-hero {
+    padding: 80px 53px;
+    background: linear-gradient(135deg, var(--color-navy), #17366f);
+}
+
+.architecture-hero-inner,
+.architecture-content {
+    width: min(100%, 1180px);
+    margin-inline: auto;
+}
+
+.architecture-eyebrow {
+    margin: 0;
+    color: var(--color-accent-light);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.architecture-hero h1 {
+    margin: 14px 0 0;
+    color: #fff;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.architecture-lead {
+    max-width: 900px;
+    margin: 22px 0 0;
+    color: #d5e2f8;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+.architecture-content {
+    padding: 72px 0 96px;
+}
+
+.architecture-section + .architecture-section {
+    margin-top: 88px;
+}
+
+.architecture-section-heading {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.architecture-section-heading > p {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    margin: 0;
+    border-radius: 50%;
+    background: var(--color-accent);
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.architecture-section-heading span {
+    color: var(--color-text-secondary);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+}
+
+.architecture-section-heading h2 {
+    margin: 2px 0 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.section-description {
+    margin: 24px 0 0;
+    color: var(--color-text-gray);
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.architecture-flow {
+    margin-top: 36px;
+    padding: 36px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.flow-node {
+    display: flex;
+    min-height: 112px;
+    padding: 20px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 12px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.flow-node--primary {
+    width: min(100%, 520px);
+    margin-inline: auto;
+    border-color: var(--color-accent);
+    background: var(--color-background-badge);
+}
+
+.flow-node span,
+.flow-label {
+    color: var(--color-accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.flow-node strong {
+    margin-top: 5px;
+    color: var(--color-navy);
+    font-size: 19px;
+}
+
+.flow-node small {
+    margin-top: 5px;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+}
+
+.flow-branches {
+    display: grid;
+    margin-top: 30px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+}
+
+.flow-branch {
+    position: relative;
+    display: flex;
+    padding-top: 26px;
+    gap: 14px;
+    flex-direction: column;
+}
+
+.flow-branch::before {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    width: 1px;
+    height: 48px;
+    background: var(--color-border-default);
+    content: "";
+}
+
+.flow-label {
+    align-self: center;
+}
+
+.flow-arrow {
+    color: var(--color-text-secondary);
+    font-size: 20px;
+    text-align: center;
+}
+
+.technology-table-wrapper {
+    margin-top: 32px;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-default);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.technology-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.technology-table th,
+.technology-table td {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--color-border-default);
+    color: var(--color-text-gray);
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.technology-table thead th {
+    background: var(--color-navy);
+    color: #fff;
+    font-weight: 500;
+}
+
+.technology-table tbody th {
+    width: 170px;
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.technology-table tbody tr:last-child th,
+.technology-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.decision-grid {
+    display: grid;
+    margin-top: 32px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.decision-card {
+    padding: 28px 30px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.decision-card > span {
+    color: var(--color-accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.decision-card h3 {
+    margin: 10px 0 0;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.decision-card p {
+    margin: 12px 0 0;
+    color: var(--color-text-gray);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.architecture-section--closing {
+    padding: 38px 42px;
+    border-radius: 16px;
+    background: var(--color-background-badge);
+}
+
+.back-to-home {
+    display: inline-flex;
+    min-height: 46px;
+    margin-top: 26px;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: var(--color-accent);
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+}
+
+.back-to-home:hover,
+.back-to-home:focus-visible {
+    background: #316dcc;
+    color: #fff;
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+    .architecture-hero {
+        padding: 58px 32px;
+    }
+
+    .architecture-lead {
+        font-size: 15px;
+    }
+
+    .architecture-content {
+        width: calc(100% - 64px);
+        padding: 54px 0 72px;
+    }
+
+    .architecture-section + .architecture-section {
+        margin-top: 64px;
+    }
+
+    .architecture-section-heading h2 {
+        font-size: 23px;
+    }
+
+    .section-description {
+        font-size: 15px;
+    }
+
+    .architecture-flow {
+        padding: 28px;
+    }
+
+    .technology-table th,
+    .technology-table td {
+        padding: 14px 16px;
+        font-size: 13px;
+    }
+
+    .decision-card {
+        padding: 22px 24px;
+    }
+
+    .decision-card h3 {
+        font-size: 17px;
+    }
+
+    .decision-card p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 767px) {
+    .flow-branches,
+    .decision-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow-branch + .flow-branch {
+        margin-top: 20px;
+    }
+
+    .technology-table {
+        min-width: 680px;
+    }
+}

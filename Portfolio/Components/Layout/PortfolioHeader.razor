@@ -2,10 +2,13 @@
     <div class="header-inner">
         <a class="site-logo" href="/" aria-label="ポートフォリオ トップページ">@AuthorName</a>
         <nav class="global-nav" aria-label="メインナビゲーション">
-            <a href="#about">自己紹介</a>
-            <a href="#skills">スキル</a>
-            <a href="#works">制作物</a>
-            <a href="#contact">お問い合わせ</a>
+            <a href="/#about">自己紹介</a>
+            <a href="/#skills">スキル</a>
+            <a href="/#works">制作物</a>
+            <a href="/site-architecture">サイトの技術構成</a>
+            <button type="button"
+                    aria-haspopup="dialog"
+                    @onclick="OnContactClick">お問い合わせ</button>
         </nav>
     </div>
 </header>
@@ -13,4 +16,7 @@
 @code {
     [Parameter]
     public string? AuthorName { get; set; }
+
+    [Parameter]
+    public EventCallback OnContactClick { get; set; }
 }
