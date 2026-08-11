@@ -46,11 +46,34 @@
             </ItemTemplate>
         </MudCarousel>
     </div>
+
+    <div class="carousel-shell carousel-shell--mobile">
+        <MudCarousel TData="IReadOnlyList<WorkItem>"
+                     ItemsSource="@MobilePages"
+                     Class="works-carousel"
+                     Style="@MobileCarouselStyle"
+                     ShowArrows="@HasMultipleMobilePages"
+                     ShowBullets="@HasMultipleMobilePages"
+                     ArrowsColor="Color.Primary"
+                     BulletsColor="Color.Primary"
+                     EnableSwipeGesture="true"
+                     AutoCycle="false">
+            <ItemTemplate Context="page">
+                <div class="works-page @(HasMultipleMobilePages ? "works-page--with-navigation" : "works-page--without-navigation")">
+                    @foreach (var work in page)
+                    {
+                        <WorkCard Work="@work" />
+                    }
+                </div>
+            </ItemTemplate>
+        </MudCarousel>
+    </div>
 </section>
 
 @code {
     private const int DesktopPageSize = 4;
     private const int TabletPageSize = 2;
+    private const int MobilePageSize = 1;
 
     [Parameter, EditorRequired]
     public string CategoryName { get; set; } = string.Empty;
@@ -60,11 +83,19 @@
 
     private IReadOnlyList<IReadOnlyList<WorkItem>> Pages { get; set; } = [];
     private IReadOnlyList<IReadOnlyList<WorkItem>> TabletPages { get; set; } = [];
+    private IReadOnlyList<IReadOnlyList<WorkItem>> MobilePages { get; set; } = [];
     private bool HasMultiplePages => Pages.Count > 1;
     private bool HasMultipleTabletPages => TabletPages.Count > 1;
+    private bool HasMultipleMobilePages => MobilePages.Count > 1;
     private WorkCategory Category => Items.FirstOrDefault()?.Category ?? WorkCategory.Unknown;
     private string CarouselStyle => $"height: {CarouselHeight}px;";
     private string TabletCarouselStyle => $"height: {TabletCarouselHeight}px;";
+    private string MobileCarouselStyle => Category switch
+    {
+        // カード幅は画面幅に追従するため、縦長のフライヤーはアスペクト比も含めて高さを算出する。
+        WorkCategory.Flyer => $"height: calc(141.43vw + {(HasMultipleMobilePages ? 61 : 21)}px);",
+        _ => $"height: calc(100vw + {(HasMultipleMobilePages ? 88 : 48)}px);"
+    };
 
     private int CarouselHeight => (Category, HasMultiplePages) switch
     {
@@ -91,6 +122,11 @@
 
         TabletPages = Items
             .Chunk(TabletPageSize)
+            .Select(page => (IReadOnlyList<WorkItem>)page)
+            .ToList();
+
+        MobilePages = Items
+            .Chunk(MobilePageSize)
             .Select(page => (IReadOnlyList<WorkItem>)page)
             .ToList();
     }

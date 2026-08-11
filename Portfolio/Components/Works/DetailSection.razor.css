@@ -33,3 +33,20 @@
         font-size: 14px;
     }
 }
+
+@media (max-width: 599px) {
+    .detail-section {
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    .detail-section h2 {
+        margin-bottom: 7px;
+        font-size: 14px;
+    }
+
+    .detail-section p {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+}

@@ -20,3 +20,10 @@
         padding: 12px;
     }
 }
+
+@media (max-width: 599px) {
+    .expanded-image-area {
+        min-height: 180px;
+        padding: 8px;
+    }
+}

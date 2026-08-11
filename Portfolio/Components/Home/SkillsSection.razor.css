@@ -220,3 +220,94 @@
         line-height: 1.5;
     }
 }
+
+@media (max-width: 599px) {
+    .skills-section {
+        width: calc(100% - 32px);
+        padding-bottom: 40px;
+    }
+
+    .section-heading {
+        min-height: 58px;
+        gap: 10px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+        font-size: 13px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    .section-name-en {
+        font-size: 12px;
+    }
+
+    .rating-guide,
+    .skill-group {
+        border-radius: 10px;
+    }
+
+    .rating-guide h3,
+    .skill-group h3 {
+        height: 46px;
+        padding-inline: 16px;
+        font-size: 15px;
+    }
+
+    .rating-guide-row {
+        min-height: 0;
+        padding: 12px 14px;
+        grid-template-columns: 86px minmax(0, 1fr);
+        gap: 6px 10px;
+    }
+
+    .rating-guide-row p {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    .rating-label {
+        height: 27px;
+        padding-inline: 10px;
+        justify-self: end;
+        font-size: 11px;
+    }
+
+    .skill-groups {
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    .skill-row {
+        min-height: 0;
+        padding: 12px 14px;
+        grid-template-columns: minmax(0, 1fr) 86px;
+        gap: 6px 10px;
+    }
+
+    .skill-name {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .skill-comment {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .skills-status {
+        min-height: 140px;
+        margin-top: 20px;
+        padding: 32px 16px;
+        font-size: 14px;
+    }
+}

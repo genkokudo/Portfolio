@@ -261,3 +261,106 @@
         font-size: 15px;
     }
 }
+
+@media (max-width: 599px) {
+    .about-section {
+        width: calc(100% - 32px);
+        padding-bottom: 40px;
+    }
+
+    .section-heading {
+        min-height: 58px;
+        gap: 10px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+        font-size: 13px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    .section-name-en {
+        font-size: 12px;
+    }
+
+    .about-content {
+        min-height: 0;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .profile-image-frame {
+        width: 104px;
+        height: 104px;
+        margin-inline: auto;
+        font-size: 32px;
+    }
+
+    .profile-details {
+        padding-inline: 0;
+        align-items: stretch;
+    }
+
+    .profile-name,
+    .profile-name-reading,
+    .profile-title {
+        align-self: center;
+        text-align: center;
+    }
+
+    .profile-name {
+        min-height: 0;
+        padding-block: 0;
+        font-size: 20px;
+    }
+
+    .profile-name-reading {
+        margin-top: 2px;
+        font-size: 13px;
+    }
+
+    .profile-title {
+        min-height: 0;
+        padding-block: 4px 0;
+        font-size: 15px;
+    }
+
+    .profile-description {
+        min-height: 0;
+        padding-block: 12px;
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .profile-tags {
+        min-height: 0;
+        padding: 0;
+        gap: 6px;
+    }
+
+    .profile-tags li {
+        height: 28px;
+        padding-inline: 11px;
+        font-size: 12px;
+    }
+
+    .github-link {
+        align-self: stretch;
+        min-height: 42px;
+        margin-top: 14px;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .about-status {
+        min-height: 160px;
+        padding: 32px 16px;
+        font-size: 14px;
+    }
+}

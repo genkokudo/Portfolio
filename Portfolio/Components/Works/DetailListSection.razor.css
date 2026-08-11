@@ -63,3 +63,31 @@
         font-size: 13px;
     }
 }
+
+@media (max-width: 599px) {
+    .detail-section {
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    .detail-section h2 {
+        margin-bottom: 7px;
+        font-size: 14px;
+    }
+
+    .detail-list {
+        padding-left: 19px;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .detail-list--compact {
+        padding: 0;
+        gap: 5px;
+    }
+
+    .detail-list--compact li {
+        padding: 5px 9px;
+        font-size: 11px;
+    }
+}

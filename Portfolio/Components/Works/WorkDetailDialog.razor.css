@@ -198,3 +198,81 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 599px) {
+    .work-intro {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .work-image-area,
+    .work-image-button {
+        min-height: 220px;
+    }
+
+    .work-image-button {
+        padding: 10px;
+    }
+
+    .work-image-button img {
+        max-height: 42vh;
+    }
+
+    .zoom-label {
+        right: 8px;
+        bottom: 8px;
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .work-kind {
+        min-height: 28px;
+        margin-bottom: 8px;
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+
+    .work-basic-info h1 {
+        font-size: 21px;
+    }
+
+    .work-lead {
+        margin-top: 8px;
+        font-size: 13px;
+    }
+
+    .work-meta {
+        margin-top: 14px;
+        grid-template-columns: 1fr;
+    }
+
+    .work-meta div {
+        padding: 10px 4px;
+    }
+
+    .work-meta dt {
+        font-size: 11px;
+    }
+
+    .work-meta dd {
+        font-size: 13px;
+    }
+
+    .tools-section {
+        margin-top: 18px;
+    }
+
+    .tools-section h2 {
+        font-size: 14px;
+    }
+
+    .detail-tags li {
+        padding: 5px 9px;
+        font-size: 11px;
+    }
+
+    .work-description-sections {
+        margin-top: 18px;
+        gap: 12px;
+    }
+}

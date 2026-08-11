@@ -50,3 +50,26 @@
         font-size: 19px;
     }
 }
+
+@media (max-width: 599px) {
+    .contact-status {
+        padding: 16px 4px 12px;
+    }
+
+    .contact-status-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+    }
+
+    .contact-status h2 {
+        margin-top: 16px;
+        font-size: 17px;
+    }
+
+    .contact-status p {
+        margin-top: 9px;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+}

@@ -91,3 +91,41 @@
         gap: 24px;
     }
 }
+
+@media (max-width: 599px) {
+    .works-section {
+        width: calc(100% - 32px);
+        padding-bottom: 36px;
+    }
+
+    .section-heading {
+        min-height: 58px;
+        gap: 10px;
+    }
+
+    .section-number {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+        font-size: 13px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    .section-name-en {
+        font-size: 12px;
+    }
+
+    .work-categories {
+        gap: 18px;
+    }
+
+    .works-status {
+        padding: 32px 16px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+}

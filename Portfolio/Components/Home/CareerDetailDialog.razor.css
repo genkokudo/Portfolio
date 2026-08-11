@@ -176,3 +176,71 @@
         gap: 16px;
     }
 }
+
+@media (max-width: 599px) {
+    .career-summary {
+        padding: 14px 12px;
+        border-left-width: 4px;
+    }
+
+    .career-summary-heading {
+        gap: 4px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .career-summary h2 {
+        font-size: 18px;
+    }
+
+    .career-summary-role {
+        color: var(--color-accent);
+        font-size: 14px;
+    }
+
+    .career-summary-period,
+    .career-summary-description {
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    .projects-heading {
+        margin: 18px 0 10px;
+        font-size: 16px;
+    }
+
+    .project-panels ::deep .mud-expand-panel-header {
+        min-height: 48px;
+        padding-inline: 12px;
+        font-size: 13px;
+    }
+
+    .project-details {
+        padding-bottom: 14px;
+        gap: 14px;
+    }
+
+    .project-overview-grid {
+        gap: 12px;
+    }
+
+    .project-detail-block h4,
+    .project-detail-block p,
+    .contribution-list {
+        font-size: 12px;
+    }
+
+    .project-tags {
+        gap: 5px;
+    }
+
+    .project-tags li {
+        min-height: 27px;
+        padding: 4px 9px;
+        font-size: 11px;
+    }
+
+    .contribution-list {
+        padding-left: 19px;
+    }
+}
