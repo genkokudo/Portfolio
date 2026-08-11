@@ -27,7 +27,7 @@
 
             <p class="section-description">
                 Blazor WebAssemblyで構築した画面をAzure Static Web Appsで公開しています。
-                表示データはAzure FunctionsのAPIを通してCosmos DBから取得し、作品画像はAzure Blob Storageから配信します。
+                閲覧時は、表示データをAzure FunctionsのAPIを通してCosmos DBから取得し、作品画像をAzure Blob Storageから配信します。
             </p>
 
             <div class="architecture-flow" aria-label="ポートフォリオサイトのシステム構成図">
@@ -65,9 +65,61 @@
             </div>
         </section>
 
-        <section class="architecture-section" aria-labelledby="technology-title">
+        <section class="architecture-section" aria-labelledby="image-pipeline-title">
             <div class="architecture-section-heading">
                 <p>02</p>
+                <div>
+                    <span>Image Processing Pipeline</span>
+                    <h2 id="image-pipeline-title">画像登録パイプライン</h2>
+                </div>
+            </div>
+
+            <p class="section-description">
+                フルサイズ画像をAzure Blob Storageへアップロードすると、Blobの作成を契機にAzure Functionsが起動します。
+                Functionは画像情報をCosmos DBへ登録するとともに、一覧表示用のサムネイルを生成してBlob Storageへ追加します。
+            </p>
+
+            <div class="image-pipeline" role="img" aria-label="フルサイズ画像のアップロードを起点にAzure Functionsが起動し、Cosmos DBへの画像情報登録と、サムネイル専用コンテナへの画像追加を行う処理">
+                <div class="pipeline-node pipeline-node--source">
+                    <span>Original Image</span>
+                    <strong>フルサイズ画像をアップロード</strong>
+                    <small>元画像用Blobコンテナ</small>
+                </div>
+
+                <div class="pipeline-arrow" aria-hidden="true">↓</div>
+                <span class="pipeline-event-label">Blob作成通知</span>
+                <div class="pipeline-arrow" aria-hidden="true">↓</div>
+
+                <div class="pipeline-node pipeline-node--function">
+                    <span>Blob Trigger</span>
+                    <strong>Azure Functions</strong>
+                    <small>画像情報の取得・サムネイル生成</small>
+                </div>
+
+                <div class="pipeline-output-label">処理結果</div>
+                <div class="pipeline-outputs">
+                    <div class="pipeline-node">
+                        <span>Metadata</span>
+                        <strong>Cosmos DB</strong>
+                        <small>画像情報を登録</small>
+                    </div>
+                    <div class="pipeline-node">
+                        <span>Thumbnail</span>
+                        <strong>Azure Blob Storage</strong>
+                        <small>サムネイル用Blobコンテナ</small>
+                    </div>
+                </div>
+
+                <p class="pipeline-note">
+                    <strong>再帰起動を防止：</strong>
+                    元画像とサムネイルの保存先を別コンテナに分け、生成したサムネイルが同じFunctionを再度起動しない構成にしています。
+                </p>
+            </div>
+        </section>
+
+        <section class="architecture-section" aria-labelledby="technology-title">
+            <div class="architecture-section-heading">
+                <p>03</p>
                 <div>
                     <span>Technology Stack</span>
                     <h2 id="technology-title">使用技術</h2>
@@ -95,9 +147,14 @@
                             <td>モーダル、カルーセル、レスポンシブ表示</td>
                         </tr>
                         <tr>
-                            <th scope="row">API</th>
+                            <th scope="row">API・バックエンド</th>
                             <td>Azure Functions Isolated</td>
-                            <td>Cosmos DBからの表示データ取得</td>
+                            <td>表示データ取得、Blob作成通知の処理</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">画像処理</th>
+                            <td>Azure Functions</td>
+                            <td>画像情報の登録、サムネイル生成</td>
                         </tr>
                         <tr>
                             <th scope="row">データ</th>
@@ -107,7 +164,7 @@
                         <tr>
                             <th scope="row">画像</th>
                             <td>Azure Blob Storage</td>
-                            <td>作品画像とサムネイルの配信</td>
+                            <td>元画像とサムネイルを別コンテナで保存・配信</td>
                         </tr>
                         <tr>
                             <th scope="row">公開</th>
@@ -121,7 +178,7 @@
 
         <section class="architecture-section" aria-labelledby="design-title">
             <div class="architecture-section-heading">
-                <p>03</p>
+                <p>04</p>
                 <div>
                     <span>Design Decisions</span>
                     <h2 id="design-title">設計上の工夫</h2>
@@ -149,12 +206,22 @@
                     <h3>コンポーネント単位で実装</h3>
                     <p>各セクションや詳細モーダルを部品として分割し、PCとタブレットの表示差分はCSSのMedia Queriesで調整しています。</p>
                 </article>
+                <article class="decision-card">
+                    <span>05</span>
+                    <h3>画像登録を自動化</h3>
+                    <p>Blobへの画像アップロードを起点に、画像情報のDB登録とサムネイル生成をAzure Functionsで自動処理しています。</p>
+                </article>
+                <article class="decision-card">
+                    <span>06</span>
+                    <h3>コンテナ分離で再帰を防止</h3>
+                    <p>元画像用とサムネイル用のBlobコンテナを分け、生成物によって同じFunctionが再度起動しないようにしています。</p>
+                </article>
             </div>
         </section>
 
         <section class="architecture-section architecture-section--closing" aria-labelledby="development-title">
             <div class="architecture-section-heading">
-                <p>04</p>
+                <p>05</p>
                 <div>
                     <span>Development</span>
                     <h2 id="development-title">デザインから公開まで</h2>
