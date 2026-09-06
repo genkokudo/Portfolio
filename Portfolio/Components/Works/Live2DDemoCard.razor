@@ -1,0 +1,35 @@
+@inject IDialogService DialogService
+
+<article class="live2d-card">
+    <div>
+        <p class="live2d-eyebrow">INTERACTIVE / Live2D</p>
+        <h3>ペンギンのLive2Dモデル</h3>
+        <p class="live2d-description">ドラッグして、顔や視線の動きを楽しめるデモです。</p>
+    </div>
+    <button type="button" class="live2d-open" aria-haspopup="dialog" disabled="@opening" @onclick="OpenAsync">
+        Live2D デモ <span aria-hidden="true">↗</span>
+    </button>
+</article>
+
+@code {
+    private bool opening;
+
+    private async Task OpenAsync()
+    {
+        if (opening) return;
+        opening = true;
+        try
+        {
+            var dialog = await DialogService.ShowAsync<Live2DDemoDialog>("Live2D デモ", new DialogOptions
+            {
+                BackdropClick = true,
+                CloseButton = true,
+                CloseOnEscapeKey = true,
+                FullWidth = true,
+                MaxWidth = MaxWidth.Medium
+            });
+            await dialog.Result;
+        }
+        finally { opening = false; }
+    }
+}

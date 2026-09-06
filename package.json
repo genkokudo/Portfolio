@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-live2d",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:live2d": "node scripts/build-live2d.mjs",
+    "test:live2d": "node --experimental-vm-modules --test tests/live2d-demo.test.mjs"
+  },
+  "devDependencies": {
+    "cubism-framework": "https://github.com/Live2D/CubismWebFramework/archive/198a3769c26ca3d7b600e932590433badd392edd.tar.gz",
+    "esbuild": "0.25.12"
+  }
+}

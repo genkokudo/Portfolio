@@ -1,0 +1,23 @@
+.live2d-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 32px;
+    padding: 28px 32px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 16px;
+    background: #fff;
+}
+.live2d-eyebrow { margin: 0 0 8px; color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+h3 { margin: 0 0 8px; color: var(--color-navy); font-size: 20px; font-weight: 700; }
+.live2d-description { margin: 0; color: var(--color-text-gray); line-height: 1.8; }
+.live2d-open { flex-shrink: 0; display: flex; gap: 24px; align-items: center; padding: 14px 24px; border: 0; border-radius: 8px; background: var(--color-navy); color: #fff; font-weight: 700; cursor: pointer; }
+.live2d-open:hover { background: var(--color-accent); }
+.live2d-open:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+.live2d-open:disabled { opacity: .65; cursor: wait; }
+@media (max-width: 599px) {
+    .live2d-card { align-items: stretch; flex-direction: column; padding: 24px 20px; margin-top: 24px; }
+    .live2d-open { justify-content: space-between; }
+    h3 { font-size: 18px; }
+}
