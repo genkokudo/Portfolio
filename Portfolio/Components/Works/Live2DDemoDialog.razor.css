@@ -1,0 +1,16 @@
+.live2d-stage { position: relative; width: 100%; height: min(55dvh, 480px); min-height: 220px; overflow: hidden; border-radius: 12px; background: radial-gradient(ellipse at center, #fff 15%, #edf3f5 100%); }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+canvas:active { cursor: grabbing; }
+canvas:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -4px; }
+.live2d-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; padding: 24px; background: #f3f6f8; text-align: center; }
+.live2d-status p { margin: 0; line-height: 1.8; }
+.live2d-toolbar { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.live2d-toolbar p { flex: 1; margin: 0; font-size: 13px; line-height: 1.7; color: var(--color-text-gray); }
+button { padding: 10px 16px; border: 1px solid var(--color-border-default); border-radius: 8px; background: #fff; color: var(--color-navy); white-space: nowrap; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: default; }
+.live2d-credit { margin: 12px 0 0; color: var(--color-text-gray); font-size: 11px; text-align: right; }
+.live2d-spinner { width: 28px; height: 28px; border: 3px solid #dce4e8; border-top-color: var(--color-accent); border-radius: 50%; animation: live2d-spin 1s linear infinite; }
+@keyframes live2d-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .live2d-spinner { animation: none; } }
+@media (max-width: 599px) { .live2d-toolbar { align-items: flex-start; flex-direction: column; } }

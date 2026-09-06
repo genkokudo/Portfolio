@@ -1,0 +1,111 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject IHttpClientFactory HttpClientFactory
+@inject IConfiguration Configuration
+
+<MudDialog>
+    <DialogContent>
+        <div class="live2d-stage" aria-busy="@(status == "loading" ? "true" : "false")">
+            <canvas @ref="canvas" tabindex="0" aria-label="ペンギンのLive2Dモデル。ドラッグまたは矢印キーで操作できます。" aria-describedby="@helpId"></canvas>
+            @if (status != "ready")
+            {
+                <div class="live2d-status" role="@(status == "error" ? "alert" : "status")">
+                    @if (status == "loading")
+                    {
+                        <span class="live2d-spinner" aria-hidden="true"></span>
+                        <p>モデルを読み込んでいます…</p>
+                    }
+                    else
+                    {
+                        <p>@errorMessage</p>
+                        <button type="button" @onclick="RetryAsync">もう一度読み込む</button>
+                    }
+                </div>
+            }
+        </div>
+        <div class="live2d-toolbar">
+            <p id="@helpId">ドラッグ・スワイプ、またはモデルにフォーカスして矢印キーで操作できます。</p>
+            <button type="button" disabled="@(status != "ready")" @onclick="ResetAsync">リセット</button>
+        </div>
+        <p class="live2d-credit">Powered by Live2D</p>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    private readonly string sessionId = Guid.NewGuid().ToString("N");
+    private readonly string helpId = $"live2d-help-{Guid.NewGuid():N}";
+    private ElementReference canvas;
+    private IJSObjectReference? module;
+    private DotNetObjectReference<Live2DDemoDialog>? callback;
+    private string status = "loading";
+    private string errorMessage = "モデルを読み込めませんでした。通信環境を確認して、もう一度お試しください。";
+    private bool disposed;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) await StartAsync();
+    }
+
+    private async Task StartAsync()
+    {
+        try
+        {
+            if (module is null)
+            {
+                var imported = await JS.InvokeAsync<IJSObjectReference>("import", "./js/live2d-demo.js");
+                if (disposed) { await imported.DisposeAsync(); return; }
+                module = imported;
+            }
+            if (disposed) return;
+            callback ??= DotNetObjectReference.Create(this);
+            var baseUrl = HttpClientFactory.CreateClient("functions").BaseAddress
+                ?? throw new InvalidOperationException("Functions URL is missing.");
+            var modelPath = Configuration["Live2D:ModelPath"] ?? "live2d/penguin/1254.model3.json";
+            var modelUrl = new Uri(baseUrl, modelPath).AbsoluteUri;
+            await module.InvokeVoidAsync("mount", sessionId, canvas, modelUrl, callback);
+        }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException or UriFormatException)
+        {
+            Console.Error.WriteLine($"Live2D initialization failed: {ex.Message}");
+            if (!disposed) { status = "error"; await InvokeAsync(StateHasChanged); }
+        }
+    }
+
+    [JSInvokable]
+    public Task SetViewerState(string state, string? message) => InvokeAsync(() =>
+    {
+        if (disposed) return;
+        status = state;
+        if (!string.IsNullOrWhiteSpace(message)) errorMessage = message;
+        StateHasChanged();
+    });
+
+    private async Task RetryAsync()
+    {
+        if (status == "loading" || disposed) return;
+        status = "loading";
+        if (module is not null) await module.InvokeVoidAsync("unmount", sessionId);
+        await StartAsync();
+    }
+
+    private async Task ResetAsync()
+    {
+        if (module is not null && !disposed) await module.InvokeVoidAsync("reset", sessionId);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        disposed = true;
+        try
+        {
+            if (module is not null)
+            {
+                await module.InvokeVoidAsync("unmount", sessionId);
+                await module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException) { }
+        catch (JSException) { } // JS also observes DOM removal to clean up during navigation.
+        finally { callback?.Dispose(); }
+    }
+}
